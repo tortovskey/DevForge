@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "python-q1",
+    "language": "python",
+    "tag": "start",
+    "text": "Что покажет print(\"Привет\")?",
+    "options": [
+      "Привет",
+      "\"Привет\"",
+      "Ничего: нужна переменная"
+    ],
+    "correct": 0,
+    "explanation": "print выводит содержимое строки, без кавычек."
+  },
+  {
+    "id": "python-q2",
+    "language": "python",
+    "tag": "variables",
+    "text": "После x = 3 и x = x + 2 чему равен x?",
+    "options": [
+      "3",
+      "5",
+      "Возникнет ошибка"
+    ],
+    "correct": 1,
+    "explanation": "Правая часть использует прежнее 3, затем результат 5 сохраняется в x."
+  },
+  {
+    "id": "python-q3",
+    "language": "python",
+    "tag": "types",
+    "text": "Как превратить строку \"12\" в целое число?",
+    "options": [
+      "str(\"12\")",
+      "int(\"12\")",
+      "\"12\" + 0"
+    ],
+    "correct": 1,
+    "explanation": "int преобразует подходящую строку в число, а str создаёт строку."
+  },
+  {
+    "id": "python-q4",
+    "language": "python",
+    "tag": "conditions",
+    "text": "Какое условие истинно при age = 18?",
+    "options": [
+      "age > 18",
+      "age < 18",
+      "age >= 18"
+    ],
+    "correct": 2,
+    "explanation": "Оператор >= включает саму границу."
+  },
+  {
+    "id": "python-q5",
+    "language": "python",
+    "tag": "loops",
+    "text": "Какие значения даёт range(1, 4)?",
+    "options": [
+      "1, 2, 3, 4",
+      "1, 2, 3",
+      "0, 1, 2, 3"
+    ],
+    "correct": 1,
+    "explanation": "Правая граница range не включается."
+  },
+  {
+    "id": "python-q6",
+    "language": "python",
+    "tag": "collections",
+    "text": "Как получить первый элемент names?",
+    "options": [
+      "names[1]",
+      "names[0]",
+      "names.first()"
+    ],
+    "correct": 1,
+    "explanation": "Индексация списков начинается с нуля."
+  },
+  {
+    "id": "python-q7",
+    "language": "python",
+    "tag": "functions",
+    "text": "Что возвращает функция без return?",
+    "options": [
+      "Последнее напечатанное число",
+      "Ничего: это всегда ошибка",
+      "None"
+    ],
+    "correct": 2,
+    "explanation": "Функция без явного return возвращает None; print не заменяет return."
+  },
+  {
+    "id": "python-q8",
+    "language": "python",
+    "tag": "objects",
+    "text": "Где хранить отдельный счётчик каждого объекта?",
+    "options": [
+      "В self.value внутри __init__",
+      "В одной общей глобальной переменной",
+      "Только в имени класса"
+    ],
+    "correct": 0,
+    "explanation": "Атрибут экземпляра self.value принадлежит конкретному объекту."
+  },
+  {
+    "id": "sql-q1",
+    "language": "sql",
+    "tag": "start",
+    "text": "Что представляет одна строка таблицы users?",
+    "options": [
+      "Один столбец",
+      "Одного пользователя",
+      "Все таблицы базы"
+    ],
+    "correct": 1,
+    "explanation": "Строка — запись; столбцы описывают её свойства."
+  },
+  {
+    "id": "sql-q2",
+    "language": "sql",
+    "tag": "select",
+    "text": "Как прочитать только имена из users?",
+    "options": [
+      "SELECT name FROM users;",
+      "GET users.name;",
+      "SELECT users FROM name;"
+    ],
+    "correct": 0,
+    "explanation": "SELECT перечисляет столбцы, FROM указывает таблицу."
+  },
+  {
+    "id": "sql-q3",
+    "language": "sql",
+    "tag": "where",
+    "text": "Как проверить отсутствие department_id?",
+    "options": [
+      "department_id = NULL",
+      "department_id IS NULL",
+      "department_id = 0"
+    ],
+    "correct": 1,
+    "explanation": "NULL проверяют через IS NULL; ноль является обычным значением."
+  },
+  {
+    "id": "sql-q4",
+    "language": "sql",
+    "tag": "order",
+    "text": "Что гарантирует порядок строк по возрасту?",
+    "options": [
+      "Сам SELECT",
+      "ORDER BY age",
+      "Название таблицы"
+    ],
+    "correct": 1,
+    "explanation": "Без ORDER BY порядок результата не гарантируется."
+  },
+  {
+    "id": "sql-q5",
+    "language": "sql",
+    "tag": "aggregate",
+    "text": "В чём разница COUNT(*) и COUNT(age)?",
+    "options": [
+      "Разницы никогда нет",
+      "COUNT(age) не считает NULL",
+      "COUNT(*) считает столбцы"
+    ],
+    "correct": 1,
+    "explanation": "COUNT(*) считает строки, COUNT(age) — ненулевые значения age."
+  },
+  {
+    "id": "sql-q6",
+    "language": "sql",
+    "tag": "write",
+    "text": "Что сделает UPDATE users SET active=0 без WHERE?",
+    "options": [
+      "Обновит все строки",
+      "Только первую строку",
+      "Ничего"
+    ],
+    "correct": 0,
+    "explanation": "Без WHERE обновление применяется ко всем строкам таблицы."
+  },
+  {
+    "id": "sql-q7",
+    "language": "sql",
+    "tag": "schema",
+    "text": "Как запретить повторяющиеся непустые email?",
+    "options": [
+      "Только TEXT",
+      "NOT NULL UNIQUE",
+      "ORDER BY email"
+    ],
+    "correct": 1,
+    "explanation": "NOT NULL запрещает отсутствие, UNIQUE — дубликаты."
+  },
+  {
+    "id": "sql-q8",
+    "language": "sql",
+    "tag": "join",
+    "text": "Что сохраняет LEFT JOIN при отсутствии совпадения справа?",
+    "options": [
+      "Левую строку с NULL справа",
+      "Только правую строку",
+      "Ничего"
+    ],
+    "correct": 0,
+    "explanation": "LEFT JOIN сохраняет все строки левой таблицы."
+  },
+  {
+    "id": "postgresql-q1",
+    "language": "postgresql",
+    "tag": "start",
+    "text": "Что такое PGlite в DevForge?",
+    "options": [
+      "Другое имя SQLite",
+      "PostgreSQL в WebAssembly",
+      "Облачный сервис"
+    ],
+    "correct": 1,
+    "explanation": "PGlite использует PostgreSQL, собранный для WebAssembly; это локальная учебная среда."
+  },
+  {
+    "id": "postgresql-q2",
+    "language": "postgresql",
+    "tag": "types",
+    "text": "Какое значение подходит столбцу BOOLEAN?",
+    "options": [
+      "TRUE",
+      "Только 1 как INTEGER",
+      "Любая строка"
+    ],
+    "correct": 0,
+    "explanation": "У PostgreSQL есть отдельный тип BOOLEAN."
+  },
+  {
+    "id": "postgresql-q3",
+    "language": "postgresql",
+    "tag": "types",
+    "text": "Что делает '42'::integer?",
+    "options": [
+      "Создаёт таблицу",
+      "Преобразует текст в целое число",
+      "Печатает ::integer"
+    ],
+    "correct": 1,
+    "explanation": "Оператор :: явно преобразует тип."
+  },
+  {
+    "id": "postgresql-q4",
+    "language": "postgresql",
+    "tag": "where",
+    "text": "Какой оператор ищет текст без учёта регистра?",
+    "options": [
+      "ILIKE",
+      "LIKE всегда",
+      "EQUALS"
+    ],
+    "correct": 0,
+    "explanation": "ILIKE — регистронезависимый вариант сравнения по шаблону."
+  },
+  {
+    "id": "postgresql-q5",
+    "language": "postgresql",
+    "tag": "write",
+    "text": "Для чего нужен INSERT ... RETURNING id?",
+    "options": [
+      "Получить id вставленной записи",
+      "Удалить id",
+      "Отменить вставку"
+    ],
+    "correct": 0,
+    "explanation": "RETURNING возвращает данные изменённых строк."
+  },
+  {
+    "id": "postgresql-q6",
+    "language": "postgresql",
+    "tag": "json",
+    "text": "Какой оператор JSONB возвращает текст поля?",
+    "options": [
+      "->",
+      "->>",
+      "=>"
+    ],
+    "correct": 1,
+    "explanation": "->> извлекает текст; -> сохраняет JSON-представление."
+  },
+  {
+    "id": "postgresql-q7",
+    "language": "postgresql",
+    "tag": "subquery",
+    "text": "Как долго существует имя CTE из WITH?",
+    "options": [
+      "В рамках одного SQL-выражения",
+      "До удаления всей базы",
+      "Всегда"
+    ],
+    "correct": 0,
+    "explanation": "CTE — именованный промежуточный результат одного запроса."
+  },
+  {
+    "id": "postgresql-q8",
+    "language": "postgresql",
+    "tag": "window",
+    "text": "Что отличает оконную функцию от GROUP BY?",
+    "options": [
+      "Она всегда удаляет строки",
+      "Она сохраняет отдельные строки",
+      "Она не может сортировать"
+    ],
+    "correct": 1,
+    "explanation": "Оконные функции добавляют вычисления к строкам, не объединяя их в одну запись группы."
+  },
+  {
+    "id": "html-css-q1",
+    "language": "html-css",
+    "tag": "start",
+    "text": "Что задаёт HTML?",
+    "options": [
+      "Структуру страницы",
+      "Только цвет текста",
+      "Версию базы данных"
+    ],
+    "correct": 0,
+    "explanation": "HTML описывает элементы и их смысл. CSS отвечает за внешний вид."
+  },
+  {
+    "id": "html-css-q2",
+    "language": "html-css",
+    "tag": "structure",
+    "text": "Какой тег обозначает главный заголовок?",
+    "options": [
+      "<p>",
+      "<h1>",
+      "<style>"
+    ],
+    "correct": 1,
+    "explanation": "h1 — заголовок первого уровня."
+  },
+  {
+    "id": "html-css-q3",
+    "language": "html-css",
+    "tag": "structure",
+    "text": "Где находится видимое содержимое документа?",
+    "options": [
+      "В body",
+      "Только в title",
+      "Только в head"
+    ],
+    "correct": 0,
+    "explanation": "body содержит видимые элементы; head — метаданные."
+  },
+  {
+    "id": "html-css-q4",
+    "language": "html-css",
+    "tag": "css",
+    "text": "Как CSS выбирает class=\"note\"?",
+    "options": [
+      "note",
+      ".note",
+      "#note"
+    ],
+    "correct": 1,
+    "explanation": "Точка обозначает селектор класса, # — id."
+  },
+  {
+    "id": "html-css-q5",
+    "language": "html-css",
+    "tag": "css",
+    "text": "Какое свойство меняет цвет текста?",
+    "options": [
+      "background",
+      "color",
+      "display"
+    ],
+    "correct": 1,
+    "explanation": "color отвечает за цвет текста, background — за фон."
+  },
+  {
+    "id": "html-css-q6",
+    "language": "html-css",
+    "tag": "layout",
+    "text": "Что такое padding?",
+    "options": [
+      "Внутренний отступ",
+      "Внешний отступ",
+      "Толщина букв"
+    ],
+    "correct": 0,
+    "explanation": "Padding отделяет содержимое от рамки; margin — от соседей."
+  },
+  {
+    "id": "html-css-q7",
+    "language": "html-css",
+    "tag": "layout",
+    "text": "Где задают display:flex?",
+    "options": [
+      "На контейнере",
+      "Только на тексте",
+      "В теге title"
+    ],
+    "correct": 0,
+    "explanation": "Flex-контейнер управляет расположением своих дочерних элементов."
+  },
+  {
+    "id": "html-css-q8",
+    "language": "html-css",
+    "tag": "accessibility",
+    "text": "Как связать label с input id=\"name\"?",
+    "options": [
+      "label for=\"name\"",
+      "label href=\"name\"",
+      "Совпадения текста достаточно"
+    ],
+    "correct": 0,
+    "explanation": "for у label должен совпасть с id поля."
+  },
+  {
+    "id": "c-q1",
+    "language": "c",
+    "tag": "start",
+    "text": "Где начинается программа C?",
+    "options": [
+      "В main",
+      "В последней строке",
+      "В printf"
+    ],
+    "correct": 0,
+    "explanation": "main — точка входа обычной программы."
+  },
+  {
+    "id": "c-q2",
+    "language": "c",
+    "tag": "types",
+    "text": "Что даёт 5 / 2 для двух int?",
+    "options": [
+      "2.5",
+      "2",
+      "Ошибка"
+    ],
+    "correct": 1,
+    "explanation": "Целочисленное деление отбрасывает дробную часть."
+  },
+  {
+    "id": "c-q3",
+    "language": "c",
+    "tag": "conditions",
+    "text": "Как проверить равенство x и 3?",
+    "options": [
+      "x=3",
+      "x==3",
+      "x===3"
+    ],
+    "correct": 1,
+    "explanation": "= присваивает, == сравнивает."
+  },
+  {
+    "id": "c-q4",
+    "language": "c",
+    "tag": "loops",
+    "text": "Какие индексы у int a[3]?",
+    "options": [
+      "1,2,3",
+      "0,1,2",
+      "0,1,2,3"
+    ],
+    "correct": 1,
+    "explanation": "Допустимо от нуля до длины минус один."
+  },
+  {
+    "id": "c-q5",
+    "language": "c",
+    "tag": "pointers",
+    "text": "Что означает &x?",
+    "options": [
+      "Значение x",
+      "Адрес x",
+      "Удвоение x"
+    ],
+    "correct": 1,
+    "explanation": "& получает адрес объекта."
+  },
+  {
+    "id": "c-q6",
+    "language": "c",
+    "tag": "memory",
+    "text": "Что нужно сделать с успешно выделенной malloc памятью?",
+    "options": [
+      "Освободить free после использования",
+      "Ничего",
+      "Вызвать printf"
+    ],
+    "correct": 0,
+    "explanation": "Память освобождает владелец; после free указатель нельзя разыменовывать."
+  },
+  {
+    "id": "c-q7",
+    "language": "c",
+    "tag": "strings",
+    "text": "Чем заканчивается C-строка?",
+    "options": [
+      "Символом NUL",
+      "Пробелом",
+      "Точкой"
+    ],
+    "correct": 0,
+    "explanation": "Нулевой байт отмечает конец строки и требует места в буфере."
+  },
+  {
+    "id": "c-q8",
+    "language": "c",
+    "tag": "project",
+    "text": "Как проверить scanf(\"%d\",&x)?",
+    "options": [
+      "Сравнить результат с 1",
+      "Сравнить x с 0",
+      "Не проверять"
+    ],
+    "correct": 0,
+    "explanation": "scanf возвращает количество успешно записанных значений."
+  },
+  {
+    "id": "js-q1",
+    "language": "javascript",
+    "tag": "first-console",
+    "text": "Что выведет console.log('Привет')?",
+    "options": [
+      "Привет",
+      "'Привет'",
+      "Ничего: нужна переменная"
+    ],
+    "correct": 0,
+    "explanation": "console.log выводит содержимое строки без окружающих кавычек."
+  },
+  {
+    "id": "js-q2",
+    "language": "javascript",
+    "tag": "variables",
+    "text": "Чем отличается let от const в JavaScript?",
+    "options": [
+      "let объявляет изменяемую переменную, а const — неизменяемую константу",
+      "const работает только со строками",
+      "Ничем, это полные синонимы"
+    ],
+    "correct": 0,
+    "explanation": "Переменную let можно перезаписать другим значением, а повторное присваивание в const вызовет TypeError."
+  },
+  {
+    "id": "js-q3",
+    "language": "javascript",
+    "tag": "numbers",
+    "text": "Чему равен результат выражения '5' + 2 в JavaScript?",
+    "options": [
+      "'52' (склеивание строк)",
+      "7",
+      "NaN (ошибка вычисления)"
+    ],
+    "correct": 0,
+    "explanation": "Если один из операндов строка, оператор + выполняет конкатенацию строк."
+  },
+  {
+    "id": "js-q4",
+    "language": "javascript",
+    "tag": "comparison",
+    "text": "Что вернёт строгое сравнение 5 === '5'?",
+    "options": [
+      "false (число не равно строке)",
+      "true",
+      "TypeError"
+    ],
+    "correct": 0,
+    "explanation": "Оператор === проверяет и значение, и тип данных без неявного приведения типов."
+  },
+  {
+    "id": "js-q5",
+    "language": "javascript",
+    "tag": "map",
+    "text": "Какой метод массива создаёт новый массив той же длины, преобразуя каждый элемент?",
+    "options": [
+      "map",
+      "filter",
+      "forEach"
+    ],
+    "correct": 0,
+    "explanation": "Метод map применяет функцию к каждому элементу и возвращает новый массив результатов."
+  },
+  {
+    "id": "js-q6",
+    "language": "javascript",
+    "tag": "objects",
+    "text": "Как получить доступ к свойству name объекта user?",
+    "options": [
+      "user.name или user['name']",
+      "только user.name",
+      "user->name"
+    ],
+    "correct": 0,
+    "explanation": "В JavaScript доступ к свойствам объекта возможен через точку или через квадратные скобки со строковым ключом."
+  },
+  {
+    "id": "js-q7",
+    "language": "javascript",
+    "tag": "json-project",
+    "text": "Что делает функция JSON.parse(str)?",
+    "options": [
+      "Превращает строку формата JSON в объект или массив JavaScript",
+      "Превращает объект JavaScript в текст JSON",
+      "Проверяет валидность файла"
+    ],
+    "correct": 0,
+    "explanation": "JSON.parse разбирает текстовую строку JSON и восстанавливает структуры объектов и массивов."
+  },
+  {
+    "id": "js-q8",
+    "language": "javascript",
+    "tag": "arrays",
+    "text": "Какой индекс имеет первый элемент массива arr в JavaScript?",
+    "options": [
+      "0",
+      "1",
+      "-1"
+    ],
+    "correct": 0,
+    "explanation": "Индексация массивов в JavaScript начинается с нуля."
+  },
+  {
+    "id": "ts-q1",
+    "language": "typescript",
+    "tag": "first-type",
+    "text": "Как правильно указать строковый тип для переменной в TypeScript?",
+    "options": [
+      "let name: string = 'Иван';",
+      "let string name = 'Иван';",
+      "let name(string) = 'Иван';"
+    ],
+    "correct": 0,
+    "explanation": "В TypeScript аннотация типа указывается через двоеточие после имени переменной."
+  },
+  {
+    "id": "ts-q2",
+    "language": "typescript",
+    "tag": "union-types",
+    "text": "Что означает тип string | number?",
+    "options": [
+      "Значение может быть либо строкой, либо числом (Union тип)",
+      "Строка и число одновременно",
+      "Синтаксическая ошибка"
+    ],
+    "correct": 0,
+    "explanation": "Вертикальная черта | обозначает объединение типов: допускаются значения любого из указанных типов."
+  },
+  {
+    "id": "ts-q3",
+    "language": "typescript",
+    "tag": "interfaces",
+    "text": "Какое ключевое слово используется для описания структуры объекта (контракта)?",
+    "options": [
+      "interface",
+      "contract",
+      "struct"
+    ],
+    "correct": 0,
+    "explanation": "Ключевое слово interface описывает контракт формы объекта в TypeScript."
+  },
+  {
+    "id": "ts-q4",
+    "language": "typescript",
+    "tag": "optional-params",
+    "text": "Что означает знак вопроса в объявлении function greet(name?: string)?",
+    "options": [
+      "Параметр name опционален (необязателен для передачи)",
+      "Параметр имеет тип boolean",
+      "Переменная name может быть удалена"
+    ],
+    "correct": 0,
+    "explanation": "Знак ? после имени параметра делает его необязательным: его тип становится string | undefined."
+  },
+  {
+    "id": "ts-q5",
+    "language": "typescript",
+    "tag": "any-unknown",
+    "text": "Чем тип unknown безопаснее any в TypeScript?",
+    "options": [
+      "unknown требует предварительной проверки типа перед вызовом методов",
+      "unknown быстрее компилируется",
+      "Ничем, это полные синонимы"
+    ],
+    "correct": 0,
+    "explanation": "TypeScript не позволит вызвать метод у unknown без предварительного сужения типа через typeof или instanceof."
+  },
+  {
+    "id": "ts-q6",
+    "language": "typescript",
+    "tag": "readonly",
+    "text": "Какой модификатор запрещает изменение свойства объекта после создания?",
+    "options": [
+      "readonly",
+      "static",
+      "private"
+    ],
+    "correct": 0,
+    "explanation": "Свойство с модификатором readonly нельзя перезаписать после первоначальной инициализации."
+  },
+  {
+    "id": "ts-q7",
+    "language": "typescript",
+    "tag": "utility-partial",
+    "text": "Что делает служебный тип Partial<User>?",
+    "options": [
+      "Делает все свойства типа User опциональными",
+      "Удаляет обязательные свойства",
+      "Делает все свойства доступными только для чтения"
+    ],
+    "correct": 0,
+    "explanation": "Partial<T> трансформирует тип, делая каждое его поле опциональным (добавляет ?)."
+  },
+  {
+    "id": "ts-q8",
+    "language": "typescript",
+    "tag": "generics-function",
+    "text": "Для чего служат обобщения (Generics, <T>) в TypeScript?",
+    "options": [
+      "Для создания универсальных функций и классов с сохранением точных типов данных",
+      "Для генерации случайных чисел",
+      "Для ускорения работы сборщика мусора"
+    ],
+    "correct": 0,
+    "explanation": "Дженерики позволяют писать гибкий переиспользуемый код без потери информации о конкретных типах."
+  },
+  {
+    "id": "java-q1",
+    "language": "java",
+    "tag": "first-main",
+    "text": "Какая сигнатура является точкой входа в программу на Java?",
+    "options": [
+      "public static void main(String[] args)",
+      "public void start()",
+      "void main()"
+    ],
+    "correct": 0,
+    "explanation": "Метод public static void main(String[] args) — стандартная точка входа JVM в приложение."
+  },
+  {
+    "id": "java-q2",
+    "language": "java",
+    "tag": "arithmetic",
+    "text": "Чему равен результат целочисленного деления 7 / 2 в Java?",
+    "options": [
+      "3",
+      "3.5",
+      "4"
+    ],
+    "correct": 0,
+    "explanation": "Деление целых чисел int / int в Java отбрасывает дробную часть, результат равен 3."
+  },
+  {
+    "id": "java-q3",
+    "language": "java",
+    "tag": "variables",
+    "text": "Какой тип данных используется в Java для логических значений true и false?",
+    "options": [
+      "boolean",
+      "bool",
+      "bit"
+    ],
+    "correct": 0,
+    "explanation": "В Java логический тип данных называется boolean."
+  },
+  {
+    "id": "java-q4",
+    "language": "java",
+    "tag": "arrays",
+    "text": "Как узнать длину массива int[] arr в Java?",
+    "options": [
+      "arr.length (свойство)",
+      "arr.length() (метод)",
+      "arr.size()"
+    ],
+    "correct": 0,
+    "explanation": "У массивов в Java длина хранится в специальном свойстве .length без круглых скобок."
+  },
+  {
+    "id": "java-q5",
+    "language": "java",
+    "tag": "inheritance",
+    "text": "Какое ключевое слово используется для наследования одного класса от другого?",
+    "options": [
+      "extends",
+      "implements",
+      "inherits"
+    ],
+    "correct": 0,
+    "explanation": "Ключевое слово extends объявляет класс-наследник (например, class Dog extends Animal)."
+  },
+  {
+    "id": "java-q6",
+    "language": "java",
+    "tag": "encapsulation",
+    "text": "Какой модификатор доступа скрывает поле внутри класса (инкапсуляция)?",
+    "options": [
+      "private",
+      "public",
+      "protected"
+    ],
+    "correct": 0,
+    "explanation": "Модификатор private делает поле доступным только из методов того же класса."
+  },
+  {
+    "id": "java-q7",
+    "language": "java",
+    "tag": "scanner",
+    "text": "Какой класс стандартного пакета java.util удобен для чтения ввода чисел и строк?",
+    "options": [
+      "Scanner",
+      "InputReader",
+      "Parser"
+    ],
+    "correct": 0,
+    "explanation": "Класс Scanner(System.in) предоставляет удобные методы nextInt(), nextLine() и др."
+  },
+  {
+    "id": "java-q8",
+    "language": "java",
+    "tag": "math",
+    "text": "Как найти наибольшее из двух чисел a и b в Java?",
+    "options": [
+      "Math.max(a, b)",
+      "max(a, b)",
+      "Math.highest(a, b)"
+    ],
+    "correct": 0,
+    "explanation": "Статический метод Math.max(a, b) возвращает максимальное из двух значений."
+  },
+  {
+    "id": "cpp-q1",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Какой поток используется в стандартной библиотеке C++ для вывода текста в консоль?",
+    "options": [
+      "std::cout",
+      "std::cin",
+      "std::print",
+      "Console.Write"
+    ],
+    "correct": 0,
+    "explanation": "std::cout (character output) направляет символы в стандартный поток вывода через оператор <<."
+  },
+  {
+    "id": "cpp-q2",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Каким оператором данные направляются в поток std::cout?",
+    "options": [
+      "<<",
+      ">>",
+      "<-",
+      "->"
+    ],
+    "correct": 0,
+    "explanation": "Оператор << направляет поток данных в std::cout."
+  },
+  {
+    "id": "cpp-q3",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Что означает модификатор const перед типом переменной в C++?",
+    "options": [
+      "Значение переменной нельзя изменять после инициализации",
+      "Переменная хранится в динамической куче",
+      "Переменная видна только внутри функции main",
+      "Значение переменной всегда равно нулю"
+    ],
+    "correct": 0,
+    "explanation": "Ключевое слово const гарантирует неизменяемость значения переменной."
+  },
+  {
+    "id": "cpp-q4",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Какой символ используется для объявления ссылки на переменную в C++?",
+    "options": [
+      "&",
+      "*",
+      "@",
+      "#"
+    ],
+    "correct": 0,
+    "explanation": "Символ & используется для создания ссылки (псевдонима существующей переменной)."
+  },
+  {
+    "id": "cpp-q5",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Какой контейнер STL представляет собой динамический массив в C++?",
+    "options": [
+      "std::vector",
+      "std::array",
+      "std::list",
+      "std::map"
+    ],
+    "correct": 0,
+    "explanation": "std::vector — это последовательный динамический массив с автоматическим выделением памяти."
+  },
+  {
+    "id": "cpp-q6",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Какая секция видимости в классе C++ делает члены доступными только внутри класса?",
+    "options": [
+      "private",
+      "public",
+      "protected",
+      "internal"
+    ],
+    "correct": 0,
+    "explanation": "Секция private скрывает поля и методы от внешнего доступа."
+  },
+  {
+    "id": "cpp-q7",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Как вызвать метод push_back у вектора std::vector<int> v?",
+    "options": [
+      "v.push_back(10);",
+      "v->push_back(10);",
+      "push_back(v, 10);",
+      "v.add(10);"
+    ],
+    "correct": 0,
+    "explanation": "Метод push_back вызывается через точку для добавления элемента в конец вектора."
+  },
+  {
+    "id": "cpp-q8",
+    "language": "cpp",
+    "tag": "start",
+    "text": "Для чего служат шаблоны функций (template<typename T>) в C++?",
+    "options": [
+      "Для написания обобщенного кода, работающего с любыми типами",
+      "Для ускорения компиляции программы",
+      "Для создания графического интерфейса",
+      "Для работы с файловой системой"
+    ],
+    "correct": 0,
+    "explanation": "Шаблоны позволяют параметризовать функции и классы типами данных."
+  },
+  {
+    "id": "csharp-q1",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Какой статический метод класса Console выводит строку с переводом курсора в C#?",
+    "options": [
+      "Console.WriteLine",
+      "Console.Write",
+      "Console.Print",
+      "System.Out.Println"
+    ],
+    "correct": 0,
+    "explanation": "Console.WriteLine выводит текст и завершает строку символом перевода строки."
+  },
+  {
+    "id": "csharp-q2",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Какой символ ставится перед строкой для использования интерполяции в C#?",
+    "options": [
+      "$",
+      "@",
+      "#",
+      "&"
+    ],
+    "correct": 0,
+    "explanation": "Знак доллара $\"текст {переменная}\" включает механизм строковой интерполяции."
+  },
+  {
+    "id": "csharp-q3",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Какой тип данных используется в C# для хранения логических значений true и false?",
+    "options": [
+      "bool",
+      "boolean",
+      "int",
+      "BooleanValue"
+    ],
+    "correct": 0,
+    "explanation": "В языке C# базовый булев тип обозначается ключевым словом bool."
+  },
+  {
+    "id": "csharp-q4",
+    "language": "csharp",
+    "tag": "start",
+    "text": "С помощью какого цикла безопаснее всего перебрать все элементы коллекции в C#?",
+    "options": [
+      "foreach",
+      "for",
+      "while",
+      "repeat"
+    ],
+    "correct": 0,
+    "explanation": "foreach последовательно перебирает элементы коллекции без риска выхода за границы массива."
+  },
+  {
+    "id": "csharp-q5",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Какое свойство возвращает размер массива int[] arr в C#?",
+    "options": [
+      "arr.Length",
+      "arr.Count",
+      "arr.Size()",
+      "arr.Length()"
+    ],
+    "correct": 0,
+    "explanation": "Массивы в .NET имеют встроенное свойство Length, возвращающее общее количество элементов."
+  },
+  {
+    "id": "csharp-q6",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Какой класс из System.Collections.Generic реализует динамический список?",
+    "options": [
+      "List<T>",
+      "ArrayList",
+      "Vector<T>",
+      "DynamicArray"
+    ],
+    "correct": 0,
+    "explanation": "List<T> — стандартная обобщенная коллекция динамического списка."
+  },
+  {
+    "id": "csharp-q7",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Что представляют собой автоматические свойства { get; set; } в C#?",
+    "options": [
+      "Свойства с автоматически сгенерированным компилятором скрытым полем",
+      "Методы, доступные только для чтения",
+      "Глобальные константы класса",
+      "Функции обратного вызова"
+    ],
+    "correct": 0,
+    "explanation": "Автоматические свойства избавляют от необходимости вручную объявлять приватные backing-поля."
+  },
+  {
+    "id": "csharp-q8",
+    "language": "csharp",
+    "tag": "start",
+    "text": "Как называется специальный метод класса, имя которого совпадает с именем класса?",
+    "options": [
+      "Конструктор",
+      "Деструктор",
+      "Инициализатор",
+      "Фабрика"
+    ],
+    "correct": 0,
+    "explanation": "Конструктор автоматически вызывается при создании нового экземпляра оператором new."
+  },
+  {
+    "id": "objc-q1",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какая функция Foundation используется для вывода сообщений в консоль в Objective-C?",
+    "options": [
+      "NSLog",
+      "printf",
+      "Console.Log",
+      "System.print"
+    ],
+    "correct": 0,
+    "explanation": "NSLog — стандартная функция логирования фреймворка Foundation."
+  },
+  {
+    "id": "objc-q2",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какой префикс используется перед строковыми литералами NSString?",
+    "options": [
+      "@",
+      "$",
+      "#",
+      "&"
+    ],
+    "correct": 0,
+    "explanation": "Символ @ перед кавычками @\"...\" создает объект NSString вместо const char*."
+  },
+  {
+    "id": "objc-q3",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какой спецификатор формата в NSLog используется для отображения объектов Objective-C?",
+    "options": [
+      "%@",
+      "%d",
+      "%s",
+      "%o"
+    ],
+    "correct": 0,
+    "explanation": "Спецификатор %@ выводит строковое описание объекта (метод description)."
+  },
+  {
+    "id": "objc-q4",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какими скобками оформляется отправка сообщения объекту [получатель сообщение]?",
+    "options": [
+      "Квадратными [ ]",
+      "Круглыми ( )",
+      "Фигурными { }",
+      "Угловыми < >"
+    ],
+    "correct": 0,
+    "explanation": "В синтаксисе Smalltalk Objective-C посылка сообщения оформляется квадратными скобками [obj msg]."
+  },
+  {
+    "id": "objc-q5",
+    "language": "objc",
+    "tag": "start",
+    "text": "Что обозначает знак минус (-) в объявлении метода в Objective-C?",
+    "options": [
+      "Метод экземпляра объекта",
+      "Метод класса (статический)",
+      "Приватный метод",
+      "Удаленный метод"
+    ],
+    "correct": 0,
+    "explanation": "Знак минус указывает на метод экземпляра, а знак плюс (+) — на метод класса."
+  },
+  {
+    "id": "objc-q6",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какая директива объявляет свойства класса с автоматическими геттерами и сеттерами?",
+    "options": [
+      "@property",
+      "@synthesize",
+      "@interface",
+      "@dynamic"
+    ],
+    "correct": 0,
+    "explanation": "Директива @property объявляет открытое свойство объекта."
+  },
+  {
+    "id": "objc-q7",
+    "language": "objc",
+    "tag": "start",
+    "text": "Какой класс фреймворка Foundation используется для неизменяемого массива?",
+    "options": [
+      "NSArray",
+      "NSMutableArray",
+      "Vector",
+      "List"
+    ],
+    "correct": 0,
+    "explanation": "NSArray представляет неизменяемый упорядоченный список объектов в Cocoa."
+  },
+  {
+    "id": "objc-q8",
+    "language": "objc",
+    "tag": "start",
+    "text": "Что произойдет при отправке сообщения объекту, равному nil в Objective-C?",
+    "options": [
+      "Вызов безопасно проигнорируется, программа продолжит работу",
+      "Программа немедленно завершится с ошибкой NullPointerException",
+      "Возникнет исключение компилятора",
+      "Объект автоматически создастся"
+    ],
+    "correct": 0,
+    "explanation": "В рантайме Objective-C отправка сообщений nil безопасна и возвращает ноль / nil без сбоя."
+  },
+  {
+    "id": "rust-q1",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какой макрос используется в Rust для вывода строки в консоль с переводом строки?",
+    "options": [
+      "println!",
+      "print!",
+      "console.log!",
+      "fmt::println"
+    ],
+    "correct": 0,
+    "explanation": "Макрос println! форматирует и печатает строку в стандартный вывод."
+  },
+  {
+    "id": "rust-q2",
+    "language": "rust",
+    "tag": "start",
+    "text": "Каковы переменные в Rust по умолчанию при объявлении через let?",
+    "options": [
+      "Неизменяемые (immutable)",
+      "Изменяемые (mutable)",
+      "Глобальные",
+      "Статические"
+    ],
+    "correct": 0,
+    "explanation": "По умолчанию все переменные в Rust неизменяемы для гарантии безопасности."
+  },
+  {
+    "id": "rust-q3",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какое ключевое слово делает переменную изменяемой в Rust?",
+    "options": [
+      "mut",
+      "var",
+      "mutable",
+      "change"
+    ],
+    "correct": 0,
+    "explanation": "Ключевое слово mut разрешает модификацию значения переменной: let mut x = 5;"
+  },
+  {
+    "id": "rust-q4",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какой плейсхолдер используется внутри форматирующей строки println!?",
+    "options": [
+      "{}",
+      "%s",
+      "$1",
+      "<>"
+    ],
+    "correct": 0,
+    "explanation": "Фигурные скобки {} служат позиционным плейсхолдером для подстановки значений."
+  },
+  {
+    "id": "rust-q5",
+    "language": "rust",
+    "tag": "start",
+    "text": "Как вернуть значение из функции в Rust без использования слова return?",
+    "options": [
+      "Написать выражение последней строкой без точки с запятой",
+      "Поставить точку с запятой в конце",
+      "Указать стрелку ->",
+      "Rust требует return обязательно"
+    ],
+    "correct": 0,
+    "explanation": "Хвостовое выражение (без точки с запятой) автоматически становится результатом функции."
+  },
+  {
+    "id": "rust-q6",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какой символ используется для создания неизменяемой ссылки (заимствования) в Rust?",
+    "options": [
+      "&",
+      "*",
+      "ref",
+      "@"
+    ],
+    "correct": 0,
+    "explanation": "Символ & создает заимствованную ссылку на значение без передачи владения."
+  },
+  {
+    "id": "rust-q7",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какой макрос используется для удобной инициализации вектора в Rust?",
+    "options": [
+      "vec![...]",
+      "array![...]",
+      "new_vec(...)",
+      "Vector::new[...]"
+    ],
+    "correct": 0,
+    "explanation": "Макрос vec![1, 2, 3] создает динамический вектор с начальными элементами."
+  },
+  {
+    "id": "rust-q8",
+    "language": "rust",
+    "tag": "start",
+    "text": "Какая конструкция используется для исчерпывающего сопоставления с образцом в Rust?",
+    "options": [
+      "match",
+      "switch",
+      "when",
+      "case"
+    ],
+    "correct": 0,
+    "explanation": "Конструкция match проверяет все возможные шаблоны значений выражения."
+  },
+  {
+    "id": "1c-q1",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какая встроенная процедура используется в языке 1С для вывода сообщений?",
+    "options": [
+      "Сообщить()",
+      "Печать()",
+      "Вывести()",
+      "Console.Write()"
+    ],
+    "correct": 0,
+    "explanation": "Процедура Сообщить('...') выводит переданный текст в служебное окно сообщений 1С."
+  },
+  {
+    "id": "1c-q2",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какими ключевыми словами оформляется блок условного оператора в 1С?",
+    "options": [
+      "Если ... Тогда ... КонецЕсли;",
+      "Если ... То ... Конец;",
+      "If ... Then ... EndIf;",
+      "Пока ... Тогда ... Конец;"
+    ],
+    "correct": 0,
+    "explanation": "В 1С условие всегда открывается 'Если ... Тогда' и закрывается 'КонецЕсли;'."
+  },
+  {
+    "id": "1c-q3",
+    "language": "1c",
+    "tag": "start",
+    "text": "Каковы литералы логического типа Булево в языке 1С?",
+    "options": [
+      "Истина и Ложь",
+      "Да и Нет",
+      "True и False",
+      "Вкл и Выкл"
+    ],
+    "correct": 0,
+    "explanation": "В 1С значениями булева типа являются литералы Истина и Ложь."
+  },
+  {
+    "id": "1c-q4",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какая встроенная функция 1С преобразует текст в верхний регистр (заглавные буквы)?",
+    "options": [
+      "ВРег()",
+      "НРег()",
+      "СтрДлина()",
+      "Верхний()"
+    ],
+    "correct": 0,
+    "explanation": "Функция ВРег(Строка) переводит все символы строки в верхний регистр."
+  },
+  {
+    "id": "1c-q5",
+    "language": "1c",
+    "tag": "start",
+    "text": "Как создать новый динамический массив в языке 1С?",
+    "options": [
+      "Новый Массив",
+      "Создать Массив()",
+      "new Array()",
+      "Массив.Новый()"
+    ],
+    "correct": 0,
+    "explanation": "Оператор 'Новый' с типом 'Массив' создает экземпляр одномерной динамической коллекции."
+  },
+  {
+    "id": "1c-q6",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какой метод добавляет новое свойство в коллекцию Структура в 1С?",
+    "options": [
+      "Вставить()",
+      "Добавить()",
+      "Присвоить()",
+      "Установить()"
+    ],
+    "correct": 0,
+    "explanation": "У структуры метод Вставить('Имя', Значение) создает или обновляет именованное свойство."
+  },
+  {
+    "id": "1c-q7",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какая конструкция предназначена для последовательного обхода элементов коллекции в 1С?",
+    "options": [
+      "Для Каждого Элемент Из Коллекция Цикл ... КонецЦикла;",
+      "Для Сч = 1 По 10 Цикл",
+      "Пока Истина Цикл",
+      "Перебор Коллекция"
+    ],
+    "correct": 0,
+    "explanation": "Конструкция 'Для Каждого ... Из ... Цикл' безопасно перебирает элементы коллекций 1С."
+  },
+  {
+    "id": "1c-q8",
+    "language": "1c",
+    "tag": "start",
+    "text": "Какой объект 1С представляет собой таблицу в памяти с динамическими колонками и строками?",
+    "options": [
+      "ТаблицаЗначений",
+      "СписокЗначений",
+      "МассивТаблиц",
+      "НаборДанных"
+    ],
+    "correct": 0,
+    "explanation": "ТаблицаЗначений — универсальная коллекция 1С для работы с двумерными строками и колонками."
+  },
+  {
+    "id": "lua-q1",
+    "language": "lua",
+    "tag": "start",
+    "text": "С какого индекса по умолчанию начинается индексация массивов (таблиц) в языке Lua?",
+    "options": [
+      "С 1",
+      "С 0",
+      "С -1"
+    ],
+    "correct": 0,
+    "explanation": "В Lua индексы последовательностей и массивов начинаются с 1, в отличие от C или Python."
+  },
+  {
+    "id": "lua-q2",
+    "language": "lua",
+    "tag": "basics",
+    "text": "Какое ключевое слово используется для объявления локальной переменной в Lua?",
+    "options": [
+      "local",
+      "let",
+      "var"
+    ],
+    "correct": 0,
+    "explanation": "В Lua переменные по умолчанию глобальны; для объявления локальной области видимости используется ключевое слово local."
+  },
+  {
+    "id": "lua-q3",
+    "language": "lua",
+    "tag": "strings",
+    "text": "Какой оператор используется для конкатенации (склеивания) строк в Lua?",
+    "options": [
+      ".. (две точки)",
+      "+ (плюс)",
+      "& (амперсанд)"
+    ],
+    "correct": 0,
+    "explanation": "В Lua оператор сложения '+' выполняет числовое сложение, а конкатенация строк выполняется оператором '..'."
+  },
+  {
+    "id": "lua-q4",
+    "language": "lua",
+    "tag": "tables",
+    "text": "Какая функция стандартной библиотеки используется для перебора пар 'ключ-значение' в таблице?",
+    "options": [
+      "pairs()",
+      "ipairs()",
+      "table.keys()"
+    ],
+    "correct": 0,
+    "explanation": "pairs(t) перебирает все ключи таблицы (включая строковые), а ipairs(t) перебирает только числовую последовательность 1..n."
+  },
+  {
+    "id": "lua-q5",
+    "language": "lua",
+    "tag": "operators",
+    "text": "Какой оператор возвращает длину таблицы или строки в Lua?",
+    "options": [
+      "# (решетка)",
+      "len()",
+      ".length"
+    ],
+    "correct": 0,
+    "explanation": "Унарный оператор длины '#' возвращает длину строки в байтах или количество элементов в числовой последовательности таблицы."
+  },
+  {
+    "id": "lua-q6",
+    "language": "lua",
+    "tag": "functions",
+    "text": "Может ли функция в Lua возвращать несколько значений одновременно?",
+    "options": [
+      "Да, через запятую в return a, b",
+      "Нет, только одно значение или массив",
+      "Только если возвращаются числа"
+    ],
+    "correct": 0,
+    "explanation": "Lua нативно поддерживает множественный возврат значений: function f() return 1, 2 end; local x, y = f()."
+  },
+  {
+    "id": "lua-q7",
+    "language": "lua",
+    "tag": "oop",
+    "text": "Какое метаполе в метатаблице отвечает за поиск недостающих ключей и реализацию ООП-наследования?",
+    "options": [
+      "__index",
+      "__newindex",
+      "__call"
+    ],
+    "correct": 0,
+    "explanation": "Метаметод __index вызывается, когда запрашиваемый ключ отсутствует в основной таблице, что лежит в основе ООП в Lua."
+  },
+  {
+    "id": "lua-q8",
+    "language": "lua",
+    "tag": "advanced",
+    "text": "С помощью какого механизма в Lua реализуется кооперативная многозадачность?",
+    "options": [
+      "Корутины (coroutine.create, coroutine.yield, coroutine.resume)",
+      "Системные потоки pthread",
+      "Event Loop промисов"
+    ],
+    "correct": 0,
+    "explanation": "Корутины в Lua — это легковесные сопрограммы с явной передачей управления через yield и resume."
+  },
+  {
+    "id": "asm-q1",
+    "language": "assembly",
+    "tag": "start",
+    "text": "Какую разрядность имеют регистры RAX, RBX, RCX, RDX в архитектуре x86-64?",
+    "options": [
+      "64 бита (8 байт)",
+      "32 бита (4 байта)",
+      "128 бит (16 байт)"
+    ],
+    "correct": 0,
+    "explanation": "Префикс 'R' в x86-64 обозначает 64-битные регистры общего назначения (RAX, RBX, RCX, RDX, RSI, RDI, RSP, RBP, R8-R15)."
+  },
+  {
+    "id": "asm-q2",
+    "language": "assembly",
+    "tag": "registers",
+    "text": "Какая младшая 32-битная часть соответствует 64-битному регистру RAX?",
+    "options": [
+      "EAX",
+      "AX",
+      "AL"
+    ],
+    "correct": 0,
+    "explanation": "RAX — 64 бита, EAX — младшие 32 бита, AX — младшие 16 бит, AL — младшие 8 бит."
+  },
+  {
+    "id": "asm-q3",
+    "language": "assembly",
+    "tag": "instructions",
+    "text": "Что выполняет инструкция `mov rax, 42`?",
+    "options": [
+      "Записывает число 42 в регистр RAX",
+      "Сравнивает значение RAX с числом 42",
+      "Складывает RAX с 42"
+    ],
+    "correct": 0,
+    "explanation": "Инструкция mov (move) копирует операнд-источник в операнд-приёмник (первый аргумент в синтаксисе NASM/Intel)."
+  },
+  {
+    "id": "asm-q4",
+    "language": "assembly",
+    "tag": "control-flow",
+    "text": "Какая пара инструкций обычно используется для условного перехода по равенству?",
+    "options": [
+      "cmp a, b затем je метка (jump if equal)",
+      "mov a, b затем jmp метка",
+      "xor a, b затем call метка"
+    ],
+    "correct": 0,
+    "explanation": "cmp выполняет вычитание и выставляет флаги (включая ZF — Zero Flag), а je выполняет переход, если ZF = 1 (числа равны)."
+  },
+  {
+    "id": "asm-q5",
+    "language": "assembly",
+    "tag": "stack",
+    "text": "Какая инструкция помещает 64-битное значение на вершину аппаратного стека?",
+    "options": [
+      "push",
+      "pop",
+      "load"
+    ],
+    "correct": 0,
+    "explanation": "Инструкция push уменьшает указатель стека RSP на 8 байт и записывает значение в память по адресу [RSP]."
+  },
+  {
+    "id": "asm-q6",
+    "language": "assembly",
+    "tag": "functions",
+    "text": "Какая инструкция завершает подпрограмму и возвращает управление в точку вызова?",
+    "options": [
+      "ret",
+      "exit",
+      "leave"
+    ],
+    "correct": 0,
+    "explanation": "Инструкция ret (return) извлекает из вершины стека сохраненный адрес возврата и передает на него управление."
+  },
+  {
+    "id": "asm-q7",
+    "language": "assembly",
+    "tag": "syscalls",
+    "text": "Какой номер системного вызова (syscall) в Linux x86-64 соответствует sys_write?",
+    "options": [
+      "1 (в RAX)",
+      "0 (в RAX)",
+      "60 (в RAX)"
+    ],
+    "correct": 0,
+    "explanation": "В таблице системных вызовов Linux x86-64: RAX=0 — sys_read, RAX=1 — sys_write, RAX=60 — sys_exit."
+  },
+  {
+    "id": "asm-q8",
+    "language": "assembly",
+    "tag": "optimization",
+    "text": "Какой идиоматичный и быстрый способ обнулить регистр в x86 ассемблере без лишних байт кода?",
+    "options": [
+      "xor rax, rax",
+      "mov rax, 0",
+      "sub rax, rax"
+    ],
+    "correct": 0,
+    "explanation": "Инструкция `xor eax, eax` (или xor rax, rax) занимает меньше байт в машинном коде и эффективно распознается декодером процессора."
+  }
+]

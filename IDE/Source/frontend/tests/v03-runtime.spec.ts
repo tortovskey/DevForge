@@ -1,0 +1,78 @@
+import {test,expect} from '@playwright/test';
+test('Python stdin and C compiler regressions',async({page},info)=>{
+ test.setTimeout(180000);await page.goto('/');
+ const results=await page.evaluate(async()=>{
+  const {getRunner,clearRunners}=await import(/* @vite-ignore */ '/src/runners/runner.ts');
+  const py=getRunner('python'),c=getRunner('c');const data:any={};
+  data.integer=await py.run({code:'age=int(input())\nprint(age+1)',stdin:'18'});
+  data.multiline=await py.run({code:'name=input()\nage=int(input())\nprint(name,age)',stdin:'Ада\r\n25\r\n'});
+  data.blank=await py.run({code:'print(repr(input()))',stdin:'\n'});
+  data.eof=await py.run({code:'input()',stdin:''});
+  data.invalid=await py.run({code:'int(input())',stdin:'cat'});
+  data.prompt=await py.run({code:'n=int(input("Возраст: "))\nprint(n+1)',stdin:'18'});
+  data.partial=await py.run({code:'print("Привет",end="")'});
+  data.afterPartial=await py.run({code:'print("next")'});
+  data.first=await c.run({code:'#include <stdio.h>\nint main(void){int n; if(scanf("%d", &n)!=1)return 1; printf("%d\\n",n+1);return 0;}',stdin:'18'});
+  data.invalidC=await c.run({code:'int main(void){ unknown; }'});
+  data.recover=await c.run({code:'#include <stdio.h>\nint main(void){puts("ok");return 0;}'});
+  clearRunners();return data;
+ });
+ console.log(JSON.stringify(results));await info.attach('stdin-c.json',{body:JSON.stringify(results,null,2),contentType:'application/json'});
+ expect(results.integer.stdout).toBe('19\n');expect(results.multiline.stdout).toBe('Ада 25\n');expect(results.blank.stdout).toBe("''\n");expect(results.eof.error).toContain('EOFError');expect(results.invalid.error).toContain('ValueError');expect(results.prompt.stdout).toContain('19');
+ expect(results.first.error).toBeUndefined();expect(results.first.stdout).toBe('19\n');expect(results.invalidC.error).toBeTruthy();expect(results.recover.stdout).toBe('ok\n');
+ expect(results.partial.stdout).toBe('Привет');expect(results.afterPartial.stdout).toBe('next\n');
+});
+test('Project modules, header execution, C timeout and recovery',async({page})=>{
+ test.setTimeout(180000);await page.goto('/');
+ const data=await page.evaluate(async()=>{
+  const {getRunner,clearRunners,BrowserRunner}=await import(/* @vite-ignore */ '/src/runners/runner.ts');
+  const py=getRunner('python');const code='from helper import value\nprint(value)';
+  const one=await py.run({code,files:[{name:'helper.py',content:'value=1'}]});
+  const two=await py.run({code,files:[{name:'helper.py',content:'value=2'}]});
+  const removed=await py.run({code,files:[]});
+  const files=[{name:'main.c',content:'#include <stdio.h>\n#include "math_utils.h"\nint main(void){printf("%d\\n",add(2,3));return 0;}'},{name:'math_utils.c',content:'#include "math_utils.h"\nint add(int a,int b){return a+b;}'},{name:'math_utils.h',content:'int add(int,int);'}];
+  const header=await getRunner('c').run({code:files[2].content,filename:'math_utils.h',files});
+  const runner=new BrowserRunner('c',()=>{},300);const timeout=await runner.run({code:'int main(void){while(1){}return 0;}'});
+  const recovered=await runner.run({code:'#include <stdio.h>\nint main(void){puts("back");return 0;}'});runner.reset();clearRunners();return {one,two,removed,header,timeout,recovered};
+ });
+ expect(data.one.stdout).toBe('1\n');expect(data.two.stdout).toBe('2\n');expect(data.removed.error).toContain('ModuleNotFoundError');expect(data.header.stdout).toBe('5\n');expect(data.timeout.error).toContain('Timeout');expect(data.recovered.stdout).toBe('back\n');
+});
+test('Python input and C work through the visible editor',async({page})=>{
+ test.setTimeout(120000);
+ await page.request.post('/api/auth/register',{data:{username:'stdin_'+Date.now(),displayName:'Input QA',password:'TestPassword42'}});
+ await page.goto('/learn/python-input');await expect(page.locator('.monaco-editor')).toBeVisible();
+ await page.getByLabel('Ввод для программы',{exact:true}).fill('41');
+ await page.locator('.monaco-editor textarea').focus();await page.keyboard.press('Control+A');await page.keyboard.insertText('age=int(input())\nprint(age+1)');
+ await page.getByRole('button',{name:'Run',exact:true}).click();await expect(page.locator('.console')).toContainText('42');
+ await page.screenshot({path:'test-results/python-input.png',fullPage:true});
+ await page.goto('/learn/c-input');await expect(page.locator('.monaco-editor')).toBeVisible();
+ await page.locator('.monaco-editor textarea').focus();await page.keyboard.press('Control+A');await page.keyboard.insertText('#include <stdio.h>\nint main(void){int n;if(scanf("%d",&n)!=1){puts("error");return 0;}printf("%d\\n",n+1);return 0;}');
+ await page.getByRole('button',{name:'Check',exact:true}).click();await expect(page.locator('.console')).toContainText('Tests passed: 3/3');
+ await page.screenshot({path:'test-results/c-input.png',fullPage:true});
+});
+test('Python asks for missing input during execution and recovers after EOF and Stop',async({page})=>{
+ test.setTimeout(120000);
+ await page.request.post('/api/auth/register',{data:{username:'interactive_'+Date.now(),displayName:'Input QA',password:'TestPassword42'}});
+ await page.goto('/ide');await expect(page.locator('.monaco-editor')).toBeVisible();
+ expect(await page.evaluate(()=>crossOriginIsolated)).toBe(true);
+ const editor=page.locator('.monaco-editor textarea');
+ const replace=async(text:string)=>{await editor.focus();await page.keyboard.press('Control+A');await page.keyboard.insertText(text);};
+ await replace('print("Hi")\nnumber=int(input("Число: "))\nprint(number*2)');
+ await page.getByRole('button',{name:'Run',exact:true}).click();
+ await expect(page.getByRole('dialog',{name:'Программа ожидает ввод'})).toBeVisible();
+ await expect(page.getByRole('dialog')).toContainText('Число:');
+ await page.getByLabel('Введите следующую строку').fill('21');await page.getByRole('button',{name:'Отправить'}).click();
+ await expect(page.locator('.console')).toContainText('42');await expect(page.locator('.console')).toContainText('Hi');
+ await replace('first=input()\nsecond=input()\nprint(repr(first),repr(second))');
+ await page.getByRole('button',{name:'Run',exact:true}).click();
+ await page.getByLabel('Введите следующую строку').fill('Ada');await page.getByRole('button',{name:'Отправить'}).click();
+ await expect(page.getByRole('dialog')).toBeVisible();await page.getByRole('button',{name:'Отправить'}).click();
+ await expect(page.locator('.console')).toContainText("'Ada' ''");
+ await replace('number=int(input())');await page.getByRole('button',{name:'Run',exact:true}).click();
+ await page.getByRole('button',{name:'Конец ввода'}).click();await expect(page.locator('.console')).toContainText('EOFError');
+ await page.getByRole('button',{name:'Run',exact:true}).click();await expect(page.getByRole('dialog')).toBeVisible();
+ await page.getByRole('button',{name:'Остановить программу'}).click();await expect(page.getByRole('dialog')).toHaveCount(0);
+ await page.getByRole('button',{name:'Run',exact:true}).click();await page.getByLabel('Введите следующую строку').fill('7');await page.getByRole('button',{name:'Отправить'}).click();
+ await expect(page.getByRole('button',{name:'Run',exact:true})).toBeVisible();
+ await expect(page.locator('.console')).not.toContainText('EOFError');
+});

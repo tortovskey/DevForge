@@ -1,0 +1,36 @@
+{
+  "name": "devforge-ide",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run assets && node --max-old-space-size=384 --max-semi-space-size=4 ./node_modules/typescript/bin/tsc --noEmit && node --max-old-space-size=768 --max-semi-space-size=8 ./node_modules/vite/bin/vite.js build",
+    "assets": "node scripts/copy-runtimes.mjs && node scripts/provision-runtimes.mjs && node scripts/verify-runtimes.mjs",
+    "test": "playwright test",
+    "test:runner": "node --test tests/runner.test.mjs tests/worker-regressions.test.mjs tests/platform.test.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "@monaco-editor/react": "^4.7.0",
+    "fengari-web": "^0.1.4",
+    "lucide-react": "^0.468.0",
+    "monaco-editor": "^0.52.2",
+    "pyodide": "0.29.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.4",
+    "sql.js": "^1.13.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@tailwindcss/vite": "^4.1.14",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^4.1.14",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9"
+  }
+}

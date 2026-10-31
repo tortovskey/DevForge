@@ -1,0 +1,27 @@
+# Distributions and personal data never belong in the public repository.
+/IDE/*
+!/IDE/README.md
+!/IDE/Source/
+/Desktop/*
+!/Desktop/README.md
+/Web/
+*.exe
+*.dll
+*.pyd
+*.db
+*.db-shm
+*.db-wal
+*.sqlite*
+*.log
+*.pid
+.env
+.env.*
+!.env.example
+node_modules/
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+desktop.ini

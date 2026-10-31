@@ -1,0 +1,404 @@
+[
+  {
+    "id": "backend-development",
+    "title": "Backend Development",
+    "kicker": "Python · FastAPI · PostgreSQL · SQLAlchemy · Docker",
+    "description": "Полный путь бэкенд-разработчика: от синтаксиса Python и клиент-серверной архитектуры до проектирования реляционных БД в PostgreSQL, ORM SQLAlchemy, автоматического тестирования в pytest и деплоя в Docker контейнерах.",
+    "targetRole": "Junior+ Backend Developer",
+    "level": "С нуля до самостоятельного API",
+    "icon": "database",
+    "badge": "ВЫСОКИЙ СПРОС",
+    "stack": [
+      "Python 3.12",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLAlchemy ORM",
+      "pytest",
+      "Docker",
+      "Git",
+      "REST API"
+    ],
+    "modules": [
+      {
+        "id": "backend-mod-http",
+        "title": "Модуль 1. Архитектура бэкенда и протокол HTTP",
+        "skills": [
+          "Клиент-Серверная модель",
+          "Анатомия HTTP",
+          "Методы GET/POST/PUT/DELETE",
+          "Статус-коды",
+          "JSON и REST"
+        ],
+        "lessonIds": [
+          "backend-intro-client-server",
+          "backend-http-methods-status",
+          "backend-json-rest-api"
+        ]
+      },
+      {
+        "id": "backend-mod-fastapi",
+        "title": "Модуль 2. Основы веб-сервисов на FastAPI",
+        "skills": [
+          "Создание FastAPI приложения",
+          "Маршруты @app.get",
+          "Параметры путей {id}",
+          "Типизация и валидация",
+          "Пагинация и Query"
+        ],
+        "lessonIds": [
+          "backend-fastapi-first-endpoint",
+          "backend-fastapi-path-params",
+          "backend-fastapi-query-params"
+        ]
+      },
+      {
+        "id": "backend-mod-pydantic",
+        "title": "Модуль 3. Валидация данных со схемами Pydantic",
+        "skills": [
+          "Модели BaseModel",
+          "Request Body",
+          "Ограничения Field",
+          "DTO и Response Models",
+          "Защита от утечки паролей"
+        ],
+        "lessonIds": [
+          "backend-pydantic-schemas",
+          "backend-pydantic-validation"
+        ]
+      },
+      {
+        "id": "backend-mod-exceptions-di",
+        "title": "Модуль 4. Обработка ошибок и Dependency Injection",
+        "skills": [
+          "HTTPException",
+          "Guard Clauses",
+          "Принцип Inversion of Control",
+          "Depends",
+          "Авторизация по токену"
+        ],
+        "lessonIds": [
+          "backend-fastapi-http-exceptions",
+          "backend-fastapi-dependency-injection"
+        ]
+      },
+      {
+        "id": "backend-mod-databases-orm",
+        "title": "Модуль 5. Базы данных и SQLAlchemy 2.0 ORM",
+        "skills": [
+          "Реляционные БД",
+          "Связи 1:N и Foreign Key",
+          "Декларативные модели",
+          "CRUD операции",
+          "Паттерн get_db"
+        ],
+        "lessonIds": [
+          "backend-db-relational-design",
+          "backend-sqlalchemy-models",
+          "backend-sqlalchemy-crud",
+          "backend-fastapi-db-integration"
+        ]
+      },
+      {
+        "id": "backend-mod-transactions-docker",
+        "title": "Модуль 6. Транзакции, Тестирование и Docker",
+        "skills": [
+          "Атомарность (ACID)",
+          "Автотесты с pytest",
+          "FastAPI TestClient",
+          "Dockerfile",
+          "Оркестрация docker-compose"
+        ],
+        "lessonIds": [
+          "backend-transactions-acid",
+          "backend-testing-pytest-api",
+          "backend-dockerfile-container",
+          "backend-docker-compose-infra"
+        ]
+      },
+      {
+        "id": "backend-mod-capstone",
+        "title": "Итоговый проект: Сервис банковских счетов и переводов",
+        "skills": [
+          "Аутентификация по токену",
+          "Управление счетами",
+          "Атомарные переводы",
+          "Защита от двойного списания",
+          "Тестирование безопасности"
+        ],
+        "lessonIds": [
+          "backend-project-bank-api"
+        ]
+      }
+    ],
+    "capstone": {
+      "id": "backend-project-bank-api",
+      "title": "API управления счетами и переводами",
+      "description": "Полноценный микросервис: регистрация и авторизация по токену, создание мультивалютных счетов, атомарные переводы средств с транзакционной гарантией, фильтрация истории операций и пагинация.",
+      "deliverables": [
+        "Класс BankApplication с защищенными эндпоинтами",
+        "Атомарные переводы с защитой от двойного списания",
+        "Автоматические тесты сценариев валидации и безопасности",
+        "Конфигурация Dockerfile и docker-compose для запуска связки FastAPI + PostgreSQL"
+      ]
+    }
+  },
+  {
+    "id": "frontend-development",
+    "title": "Frontend Development",
+    "kicker": "HTML · CSS · JavaScript · TypeScript · React",
+    "description": "Современная фронтенд-разработка: доступная семантическая вёрстка (a11y), адаптивные сетки Flexbox и Grid, асинхронный JavaScript (Event Loop, Promises), типизация в TypeScript и компонентный подход React с хуками и управлением состоянием.",
+    "targetRole": "Junior+ Frontend Developer",
+    "level": "С нуля до интерактивных веб-приложений",
+    "icon": "code",
+    "badge": "ПОПУЛЯРНЫЙ",
+    "stack": [
+      "HTML5",
+      "CSS3 / Grid / Flexbox",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "React",
+      "React Hooks",
+      "Vite",
+      "REST Client"
+    ],
+    "modules": [
+      {
+        "id": "html-css-layout",
+        "title": "Модуль 1. Семантический HTML5 и современный CSS",
+        "skills": [
+          "Семантические теги",
+          "Формы и валидация",
+          "Блочная модель",
+          "Flexbox",
+          "CSS Grid",
+          "Медиа-запросы"
+        ],
+        "lessonIds": [
+          "html-css-first",
+          "html-css-structure",
+          "html-css-semantics",
+          "html-css-form",
+          "html-css-flex",
+          "html-css-grid",
+          "html-css-responsive",
+          "html-css-focus"
+        ]
+      },
+      {
+        "id": "js-core-async",
+        "title": "Модуль 2. JavaScript Core и асинхронность",
+        "skills": [
+          "Переменные и типы",
+          "Массивы и методы (map, filter, reduce)",
+          "Деструктуризация",
+          "Promises и async/await",
+          "Event Delegation"
+        ],
+        "lessonIds": [
+          "javascript-first-console",
+          "javascript-functions",
+          "javascript-arrow",
+          "javascript-map",
+          "javascript-filter",
+          "javascript-reduce",
+          "javascript-classes",
+          "frontend-js-async-promises",
+          "frontend-js-dom-events"
+        ]
+      },
+      {
+        "id": "ts-typing",
+        "title": "Модуль 3. TypeScript для Frontend",
+        "skills": [
+          "Аннотации типов",
+          "Интерфейсы",
+          "Generic-типы",
+          "Типизация Props",
+          "Сужение типов"
+        ],
+        "lessonIds": [
+          "typescript-first-type",
+          "typescript-interfaces",
+          "typescript-generics-interface",
+          "frontend-ts-frontend-props"
+        ]
+      },
+      {
+        "id": "react-hooks",
+        "title": "Модуль 4. React: компоненты, формы и хуки",
+        "skills": [
+          "Компонентный подход",
+          "useState и контролируемые формы",
+          "Валидация полей ввода",
+          "useMemo и useReducer"
+        ],
+        "lessonIds": [
+          "frontend-react-hooks-state",
+          "frontend-react-hooks-advanced"
+        ]
+      },
+      {
+        "id": "network-fetch",
+        "title": "Модуль 5. Сетевые запросы и обработка состояний",
+        "skills": [
+          "fetch API",
+          "Обработка загрузки и ошибок",
+          "AbortController",
+          "Скелетоны и индикаторы"
+        ],
+        "lessonIds": [
+          "frontend-network-fetch"
+        ]
+      },
+      {
+        "id": "frontend-capstone",
+        "title": "Итоговый проект: Каталог товаров и оформление заказа",
+        "skills": [
+          "Поиск и фильтры",
+          "Корзина с пересчетом скидок",
+          "Оформление заказа",
+          "Валидация адреса и контактов"
+        ],
+        "lessonIds": [
+          "frontend-project-catalog-cart"
+        ]
+      }
+    ],
+    "capstone": {
+      "id": "frontend-project-catalog-cart",
+      "title": "Интерактивный каталог товаров с корзиной и оформлением заказа",
+      "description": "Полноценный клиент интернет-магазина: каталог с живым поиском и сортировкой по цене, пагинация карточек, хранилище корзины с промокодами и расчетом скидок, валидация формы заказа и подтверждение покупки.",
+      "deliverables": [
+        "Класс StoreApplication с управлением каталогом и корзиной",
+        "Полнофункциональный поиск, фильтрация по категории и сортировка",
+        "Интерактивная корзина с динамическим пересчетом скидок",
+        "Форма заказа с проверкой валидности данных покупателя"
+      ]
+    }
+  },
+  {
+    "id": "java-development",
+    "title": "Java Development",
+    "kicker": "JDK · JVM · OOP · Collections · Streams · Spring Boot · JPA",
+    "description": "Промышленная разработка на Java: архитектура виртуальной машины JVM, строгая объектно-ориентированная парадигма, фреймворк коллекций, Stream API, обработка исключений, базы данных JDBC и разработка корпоративных REST API на Spring Boot и Spring Data JPA.",
+    "targetRole": "Junior+ Java Software Engineer",
+    "level": "С основ языка до корпоративного бэкенда",
+    "icon": "terminal",
+    "badge": "КОРПОРАТИВНЫЙ СТАНДАРТ",
+    "stack": [
+      "Java 17/21",
+      "JVM Internals",
+      "Collections Framework",
+      "Stream API",
+      "JUnit 5",
+      "Spring Boot",
+      "Spring Data JPA",
+      "Maven / Gradle"
+    ],
+    "modules": [
+      {
+        "id": "java-core-oop",
+        "title": "Модуль 1. Основы языка Java и ООП",
+        "skills": [
+          "Типы и память (Stack vs Heap)",
+          "Управляющие конструкции",
+          "Классы и объекты",
+          "Инкапсуляция",
+          "Наследование и полиморфизм"
+        ],
+        "lessonIds": [
+          "java-first-main",
+          "java-variables",
+          "java-arithmetic",
+          "java-strings",
+          "java-if-else",
+          "java-for-while",
+          "java-arrays",
+          "java-methods",
+          "java-classes",
+          "java-encapsulation",
+          "java-inheritance"
+        ]
+      },
+      {
+        "id": "java-collections-generics",
+        "title": "Модуль 2. Коллекции и безопасность типов",
+        "skills": [
+          "List (ArrayList)",
+          "Map (HashMap)",
+          "Set (HashSet)",
+          "Generics",
+          "Сложность O(1) vs O(N)"
+        ],
+        "lessonIds": [
+          "java-collections-list-map"
+        ]
+      },
+      {
+        "id": "java-robustness-streams",
+        "title": "Модуль 3. Исключения и функциональное программирование",
+        "skills": [
+          "Checked vs Unchecked",
+          "Кастомные ошибки",
+          "try-with-resources",
+          "Stream API (filter, map, collect)",
+          "Лямбда-выражения"
+        ],
+        "lessonIds": [
+          "java-exceptions-try-resources",
+          "java-stream-api"
+        ]
+      },
+      {
+        "id": "spring-boot-backend",
+        "title": "Модуль 4. Разработка REST API на Spring Boot",
+        "skills": [
+          "@RestController",
+          "Dependency Injection / IoC",
+          "Обработка HTTP методов",
+          "Валидация входных моделей"
+        ],
+        "lessonIds": [
+          "java-spring-boot-controller"
+        ]
+      },
+      {
+        "id": "spring-data-jpa-module",
+        "title": "Модуль 5. Слой данных: Spring Data JPA и ORM",
+        "skills": [
+          "@Entity и @Table",
+          "Генерация первичных ключей",
+          "Интерфейс JpaRepository",
+          "CRUD-методы"
+        ],
+        "lessonIds": [
+          "java-spring-data-jpa"
+        ]
+      },
+      {
+        "id": "java-capstone",
+        "title": "Итоговый проект: Корпоративный REST API управления задачами",
+        "skills": [
+          "CRUD сущностей",
+          "Валидация полей",
+          "Фильтрация и пагинация",
+          "Обработка ошибок 400/404"
+        ],
+        "lessonIds": [
+          "java-project-enterprise-api"
+        ]
+      }
+    ],
+    "capstone": {
+      "id": "java-project-enterprise-api",
+      "title": "Enterprise REST API сервиса задач и ресурсов",
+      "description": "Полноценный микросервис на Spring Boot: моделирование сущностей с валидацией полей, CRUD-операции через репозиторий, фильтрация по статусу, пагинация страниц (page/size), централизованная обработка ошибок с единообразными кодами ответов.",
+      "deliverables": [
+        "Класс EnterpriseTaskManager с полным циклом управления задачами",
+        "Валидация входящих данных и предотвращение недопустимых статусов",
+        "Пагинация и фильтрация с помощью Stream API",
+        "Обработка ошибок с понятными сообщениями и кодами"
+      ]
+    }
+  }
+]

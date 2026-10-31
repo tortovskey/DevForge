@@ -1,0 +1,44 @@
+/* DevForge: one focused workbench, with a quiet blue forge identity. */
+.ide-focused>.sidebar{display:none}
+.ide-focused>.app-main{margin-left:0;width:100%}
+.ide-focused>.app-main>.topbar{height:54px;min-height:54px;background:#0c1420;border-bottom:1px solid #24334a;padding:0 22px}
+.ide-quick-nav{display:flex;gap:8px;margin-right:20px}
+.ide-quick-nav a{color:#a6bbd1;padding:7px 13px;border:1px solid #2b3c53;border-radius:7px;font-size:12px;text-decoration:none}
+.ide-quick-nav a:hover{color:#e6f4ff;background:#17283c;border-color:#58b9ee}
+.devforge-ide-container{--forge-panel:#111c2b;--forge-edge:#26374c;--forge-blue:#68c6ff;--forge-muted:#93a8bf;color:#dce8f4;background:#0d1521}
+.devforge-ide-container .fusion-topbar{min-height:58px;background:#111d2d;border-bottom:1px solid var(--forge-edge);gap:16px;padding:9px 14px}
+.devforge-ide-container .fusion-brand-pill{background:transparent;color:#d5edff;border:0;font-size:13px;font-weight:650;gap:8px}
+.devforge-ide-container .fusion-brand-pill img{width:25px;height:25px}
+.devforge-ide-container .fusion-breadcrumbs{min-width:180px;gap:10px}
+.devforge-ide-container .fusion-palette-trigger{border:1px solid #33465f;border-radius:8px;background:#0c1725;color:#95adc6;padding:8px 12px;max-width:420px;box-shadow:inset 0 1px 0 #ffffff04}
+.devforge-ide-container .fusion-palette-trigger:hover{border-color:#5ba6d4;background:#132439}
+.devforge-ide-container .fusion-activity-bar{background:#0d1724;border-right:1px solid var(--forge-edge);padding-top:12px;gap:7px;min-width:54px}
+.devforge-ide-container .fusion-activity-bar button{border-radius:9px;margin:0 7px;color:#8198b1}
+.devforge-ide-container .fusion-activity-bar button:hover{color:#cceaff;background:#1a3048}
+.devforge-ide-container .fusion-activity-bar button.active{color:#84d3ff;background:#193650;border-left-color:#68c6ff}
+.devforge-ide-container .fusion-sidebar-window{background:#111c2b;border-right:1px solid var(--forge-edge);min-width:220px}
+.devforge-ide-container .fusion-sidebar-window button{font-size:12px}
+.devforge-ide-container .fusion-sidebar-window .sidebar-window-header{padding:16px 14px;color:#b4c9de;border-bottom:1px solid var(--forge-edge);letter-spacing:.08em}
+.devforge-ide-container .fusion-tab-bar{background:#101a28;border-bottom:1px solid var(--forge-edge);min-height:42px}
+.devforge-ide-container .fusion-tab{color:#8ea6c0;border-right:1px solid #223146;padding:11px 18px;gap:9px;font-size:12px}
+.devforge-ide-container .fusion-tab.active{background:#172335;color:#d4eeff;border-top:2px solid #6acaff}
+.devforge-ide-container .fusion-btn.run{background:#5ec1ff;color:#071e31;border:1px solid #89d3ff;border-radius:7px;padding:7px 16px;font-weight:700;box-shadow:0 2px 12px #1692db20}
+.devforge-ide-container .fusion-btn.run:hover{background:#8cd5ff}
+.devforge-ide-container .fusion-run-select{background:#172437;border:1px solid #2a3c55;border-radius:7px;min-width:100px;color:#bfd4e8}
+.devforge-ide-container .fusion-icon-btn{border-radius:6px;color:#9fb7d0}
+.devforge-ide-container .fusion-icon-btn:hover{background:#22374e;color:#d5eeff}
+.devforge-ide-container .fusion-bottom-panel{background:#101b2a;border-top:1px solid #2a3c53;min-height:190px}
+.devforge-ide-container .bottom-panel-header{background:#101b2a;border-bottom:1px solid #26374c;min-height:42px}
+.devforge-ide-container .bottom-tabs{gap:6px;overflow-x:auto;scrollbar-width:thin}
+.devforge-ide-container .bottom-tab{font-size:11px;white-space:nowrap;color:#879fb8;padding:11px 14px;min-width:0}
+.devforge-ide-container .bottom-tab.active{color:#aaddff;border-bottom:2px solid #68c6ff;border-radius:0}
+.devforge-ide-container .fusion-statusbar{background:#152a40;color:#bad7ee;border-top:1px solid #28415b;min-height:28px;font-size:11px}
+.devforge-ide-container .empty-output{color:#8da4bd;min-height:130px}
+.devforge-ide-container .form-group input,.devforge-ide-container .form-group textarea,.devforge-ide-container .form-group select{background:#0c1623;border-color:#2c415a;color:#d4e6f7;border-radius:6px;padding:8px}
+.devforge-ide-container button:focus-visible,.ide-quick-nav a:focus-visible{outline:2px solid #7ccfff;outline-offset:2px}
+.devforge-ide-container .html-preview{background:white;width:100%;min-height:240px;border:0;border-radius:8px;margin-top:12px}
+@media(max-width:1100px){.devforge-ide-container .fusion-palette-trigger{max-width:230px}.devforge-ide-container .symbol-crumb{display:none}.devforge-ide-container .fusion-topbar{gap:8px}.devforge-ide-container .fusion-run-select{display:none}}
+@media(max-width:800px){.ide-focused>.app-main>.topbar{padding:0 12px}.ide-quick-nav{gap:5px;margin-right:0}.ide-quick-nav a{padding:6px 9px}.devforge-ide-container .fusion-breadcrumbs{min-width:130px}.devforge-ide-container .fusion-palette-trigger{max-width:160px}.devforge-ide-container .fusion-palette-trigger kbd{display:none}.devforge-ide-container .fusion-sidebar-window{min-width:170px;width:170px}}
+:root[data-theme=light] .devforge-ide-container{filter:none;--forge-panel:#eef4fa;--forge-edge:#cddbe8;color:#18344f;background:#f6f9fc}
+:root[data-theme=light] .devforge-ide-container .fusion-sidebar-window,:root[data-theme=light] .devforge-ide-container .fusion-tab-bar,:root[data-theme=light] .devforge-ide-container .fusion-bottom-panel,:root[data-theme=light] .devforge-ide-container .bottom-panel-header{background:#eef4fa;color:#29445c}
+:root[data-theme=light] .devforge-ide-container .fusion-tab.active{background:#fff;color:#145582}

@@ -1,0 +1,10 @@
+import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const hash=async path=>createHash('sha256').update(await readFile(path)).digest('hex');
+const base='public/runtimes/clang/';
+const provenance=JSON.parse(await readFile(base+'PROVENANCE.json','utf8'));
+for(const [name,expected] of Object.entries(provenance.sha256))if(await hash(base+name)!==expected)throw new Error('C runtime integrity mismatch: '+name);
+const root='public/runtimes/pyodide/';
+const pkg=JSON.parse(await readFile(root+'pyodide-lock.json','utf8')).packages.sqlite3;
+if(await hash(root+pkg.file_name)!==pkg.sha256)throw new Error('SQLite Python module integrity mismatch');
+console.log('Pinned C toolchain and Python SQLite module verified.');

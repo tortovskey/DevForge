@@ -1,0 +1,237 @@
+[
+  {
+    "id": "python",
+    "name": "Python",
+    "extension": ".py",
+    "editorLanguage": "python",
+    "runnerType": "pyodide-worker",
+    "status": "available",
+    "description": "Основы, функции и объекты. Настоящий CPython в WebAssembly.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "sql",
+    "name": "SQL / SQLite",
+    "extension": ".sql",
+    "editorLanguage": "sql",
+    "runnerType": "sqlite-worker",
+    "status": "available",
+    "description": "Запросы, таблицы и связи в изолированной SQLite.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files"
+    ]
+  },
+  {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "extension": ".sql",
+    "editorLanguage": "sql",
+    "runnerType": "pglite-worker",
+    "status": "available",
+    "description": "PostgreSQL в WebAssembly. SQL-диалект, типы, JSONB и оконные функции без отдельного сервера.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files"
+    ]
+  },
+  {
+    "id": "html-css",
+    "name": "HTML / CSS",
+    "extension": ".html",
+    "editorLanguage": "html",
+    "runnerType": "sandbox-preview",
+    "status": "available",
+    "description": "HTML и CSS с живым изолированным предпросмотром и проверками DOM/стилей.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files"
+    ]
+  },
+  {
+    "id": "c",
+    "name": "C",
+    "extension": ".c",
+    "editorLanguage": "c",
+    "runnerType": "clang-wasi-worker",
+    "status": "available",
+    "description": "C11: компиляция Clang в браузере, указатели, память и проекты без установки.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "cpp",
+    "name": "C++",
+    "extension": ".cpp",
+    "editorLanguage": "cpp",
+    "runnerType": "cpp-worker",
+    "status": "available",
+    "description": "Объектно-ориентированное и обобщенное программирование: классы, шаблоны, STL и ссылки.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "csharp",
+    "name": "C#",
+    "extension": ".cs",
+    "editorLanguage": "csharp",
+    "runnerType": "csharp-worker",
+    "status": "available",
+    "description": "Современный C#: классы, свойства, интерфейсы, коллекции и базовый LINQ.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "objc",
+    "name": "Objective-C",
+    "extension": ".m",
+    "editorLanguage": "objective-c",
+    "runnerType": "objc-worker",
+    "status": "available",
+    "description": "Классический язык Apple: интерфейсы, реализации, посылка сообщений [obj msg] и свойства.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "rust",
+    "name": "Rust",
+    "extension": ".rs",
+    "editorLanguage": "rust",
+    "runnerType": "rust-worker",
+    "status": "available",
+    "description": "Безопасность памяти, владение (ownership), заимствование (borrowing), сопоставление с образцом и трейты.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "1c",
+    "name": "1С:Предприятие",
+    "extension": ".bsl",
+    "editorLanguage": "plaintext",
+    "runnerType": "ones-worker",
+    "status": "available",
+    "description": "Встроенный язык 1С: процедуры, функции, условия, циклы, Массивы, Структуры и Таблицы Значений.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "extension": ".js",
+    "editorLanguage": "javascript",
+    "runnerType": "javascript-worker",
+    "status": "available",
+    "description": "Скрипты, функции, массивы, объекты, асинхронность и прикладные алгоритмы в браузере.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files"
+    ]
+  },
+  {
+    "id": "typescript",
+    "name": "TypeScript",
+    "extension": ".ts",
+    "editorLanguage": "typescript",
+    "runnerType": "typescript-worker",
+    "status": "available",
+    "description": "Строгая статическая типизация, интерфейсы, объединения, дженерики и безопасность кода.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files"
+    ]
+  },
+  {
+    "id": "java",
+    "name": "Java",
+    "extension": ".java",
+    "editorLanguage": "java",
+    "runnerType": "java-worker",
+    "status": "available",
+    "description": "Объектно-ориентированное программирование, классы, методы, инкапсуляция и структуры данных.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "lua",
+    "name": "Lua",
+    "extension": ".lua",
+    "editorLanguage": "lua",
+    "runnerType": "lua-worker",
+    "status": "available",
+    "description": "Элегантный и быстрый скриптовый язык. Таблицы, метатаблицы, замыкания и корутины в Fengari Lua 5.3.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  },
+  {
+    "id": "assembly",
+    "name": "Assembly (x86-64 NASM)",
+    "extension": ".asm",
+    "editorLanguage": "assembly",
+    "runnerType": "assembly-worker",
+    "status": "available",
+    "description": "Низкоуровневое программирование на ассемблере x86-64 NASM. Регистры, стек, память и системные вызовы Linux x86-64.",
+    "supportedFeatures": [
+      "run",
+      "check",
+      "reset",
+      "files",
+      "stdin"
+    ]
+  }
+]
