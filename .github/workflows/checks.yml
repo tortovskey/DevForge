@@ -22,7 +22,7 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Prepare the static logo used by API tests
         run: |
-          mkdir -p ../frontend/dist
+          mkdir -p ../frontend/dist/assets
           cp ../frontend/public/forge.svg ../frontend/dist/forge.svg
       - run: python -m pytest -q
   frontend:
