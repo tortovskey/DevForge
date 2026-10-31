@@ -1,59 +1,68 @@
 # DevForge 1.0.0
 
-Локальная среда разработки для Windows с редактором Monaco, учебными материалами
-и настраиваемым рабочим пространством. Исходный код открыт под [MIT](LICENSE).
+A customizable coding workspace for Windows, built around the Monaco editor.
+DevForge brings together local code execution, programming lessons, and a flexible
+IDE workspace. The source code is available under the [MIT license](LICENSE).
 
-**[Скачать установщики](https://github.com/tortovskey/DevForge/releases/tag/v1.0.0)** ·
-[Изменения](CHANGELOG.md) · [Участие в разработке](CONTRIBUTING.md) · [Безопасность](SECURITY.md)
+**[Download installers](https://github.com/tortovskey/DevForge/releases/tag/v1.0.0)** ·
+[Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) ·
+[Test report](IDE/Source/TESTING.md)
 
-![DevForge IDE](IDE/Source/screenshots/workbench-dark.png)
+![DevForge IDE workspace](IDE/Source/screenshots/workbench-dark.png)
 
-## Две версии
+## Choose your edition
 
-| Версия | Назначение | Установка | Переносимый запуск |
+| Edition | Purpose | Installer | Portable launch |
 |---|---|---|---|
-| IDE | Редактор, проекты и инструменты разработки | `IDE/Setup.exe` | `IDE/DevForgeIDE.exe` |
-| Desktop | Учебные материалы и IDE в отдельном окне | `Desktop/Setup.exe` | `Desktop/DevForge.exe` |
+| IDE | Code editor, projects, and development tools | `IDE/Setup.exe` | `IDE/DevForgeIDE.exe` |
+| Desktop | Programming lessons and the IDE in one desktop window | `Desktop/Setup.exe` | `Desktop/DevForge.exe` |
 
-В версии 1.0.0 поставка Web удалена. Иконка приложения — голубая кузница с печью и дымоходом.
-Windows 10/11 x64; для окон нужен Microsoft Edge WebView2. При его отсутствии
-установщик предлагает официальный загрузчик Microsoft; этому шагу нужен интернет.
-Установщики пока не подписаны сертификатом издателя.
+Version 1.0.0 ships as IDE and Desktop editions. The standalone Web edition has been
+removed. Both editions use the blue forge icon, featuring a furnace and chimney.
 
-## Рабочее место
+DevForge requires Windows 10/11 x64 and Microsoft Edge WebView2. If WebView2 is
+missing, Setup runs Microsoft's official bootstrapper; that step requires an
+internet connection. The installers are not yet digitally signed.
 
-- Шесть тем, свои акценты и отдельные цвета панелей и редактора.
-- Раскладки Code, Studio и Focus, панели слева/справа/снизу, перетаскиваемые границы.
-- Шрифты, лигатуры, интервалы, отступы, перенос строк, направляющие и курсор.
-- Схемы клавиш VS Code и JetBrains с переопределениями и проверкой конфликтов.
-- До 12 профилей; импорт/экспорт JSON, проверка схемы и сброс настроек.
-- Палитра команд (F1), разделение редактора, поиск, локальные снимки, Python REPL.
+## Make the workspace yours
 
-Открыть настройки: кнопка с ползунками над редактором или `Ctrl+,`.
-Режим фокуса: `Ctrl+Shift+F12`; кнопка возврата остаётся доступной.
+- Six themes with custom accents and separate editor and panel colors.
+- Code, Studio, and Focus layouts with movable and resizable panels.
+- Configurable fonts, ligatures, line spacing, indentation, wrapping, guides, and cursor behavior.
+- VS Code and JetBrains keyboard layouts with custom shortcuts and conflict detection.
+- Up to 12 workspace profiles, JSON import/export, schema validation, and reset controls.
+- A keyboard-driven command palette, split editing, project search, local snapshots, and a Python REPL.
 
-![Настройки IDE](IDE/Source/screenshots/workbench-preferences.png)
+Open IDE preferences using the sliders button above the editor or `Ctrl+,`.
+Toggle focus mode with `Ctrl+Shift+F12`; the restore-panels button remains accessible.
 
-## Запуск из исходников
+![DevForge IDE preferences](IDE/Source/screenshots/workbench-preferences.png)
 
-Требуются Git, Node.js 22.12+ (рекомендуется 24 LTS), Python 3.12 и WebView2.
-Сборка загружает зависимости из npm, PyPI и закреплённые среды исполнения.
-Дополнительные Clang/SQLite файлы проверяются по SHA-256. В готовой программе они локальные.
+## Run from source
+
+You need Git, Node.js 22.12+ (24 LTS recommended), Python 3.12, and WebView2.
+Setup downloads dependencies from npm and PyPI, plus pinned runtime assets.
+Additional Clang and SQLite downloads are verified with SHA-256. Packaged applications
+serve these assets locally.
 
 ```powershell
 git clone https://github.com/tortovskey/DevForge.git
 cd DevForge/IDE/Source
 ./setup.bat
-./start.bat                 # IDE
-# & './Start Desktop.bat' # обучение + IDE
+./start.bat                  # IDE
+# & './Start Desktop.bat'    # Lessons and IDE
 ```
 
-Исходники находятся в `IDE/Source/backend`, `frontend`, `content`, `assets`, `scripts`.
-Готовые EXE, базы, личные проекты, `.venv` и `node_modules` не хранятся в Git.
-Данные приложений сохраняются в `%LOCALAPPDATA%/DevForgeIDE/data` и
-`%LOCALAPPDATA%/DevForge/data`; деинсталлятор их сохраняет.
+Application sources live in `IDE/Source/backend`, `frontend`, `content`, `assets`,
+and `scripts`. Git excludes generated executables, databases, personal projects,
+`.venv`, and `node_modules`.
 
-## Проверки и разработка
+IDE data is stored in `%LOCALAPPDATA%/DevForgeIDE/data`; Desktop data is stored in
+`%LOCALAPPDATA%/DevForge/data`. Uninstalling the application preserves this data.
+
+## Development and checks
+
+After running Setup, use the following commands:
 
 ```powershell
 cd IDE/Source
@@ -66,36 +75,46 @@ npm run test:runner
 npm run build
 ```
 
-Для интерактивной разработки в первом терминале из `IDE/Source/backend`:
+For interactive development, start the API from `IDE/Source/backend` in one terminal:
 
 ```powershell
 $env:DEVFORGE_DATA_DIR = "$PWD/../build/dev-data"
 ../.venv/Scripts/python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
 ```
 
-Во втором терминале из `IDE/Source/frontend` выполните `npm run assets`, затем
-`npm run dev -- --port 5174`. Тесты: `npm test -- ide.spec.ts security.spec.ts workbench.spec.ts`.
-Браузер здесь служит инструментом разработки интерфейса. Отдельной поставки Web нет.
+In another terminal, open `IDE/Source/frontend`, run `npm run assets`, then
+`npm run dev -- --port 5174`. Run browser tests with:
 
-## Сборка Windows
+```powershell
+npm test -- ide.spec.ts security.spec.ts workbench.spec.ts
+```
 
-Из `IDE/Source` установите `pip install -r scripts/requirements-build.txt` в `.venv`
-и Inno Setup. Затем:
+The browser is used to develop and test the interface. DevForge does not ship a
+separate Web edition.
+
+## Build the Windows applications
+
+From `IDE/Source`, install the build dependencies into `.venv` with
+`.venv/Scripts/python.exe -m pip install -r scripts/requirements-build.txt`.
+Install Inno Setup, then run:
 
 ```powershell
 ./scripts/build-deliverables.ps1 -InnoCompiler "C:/Program Files (x86)/Inno Setup 7/ISCC.exe"
 ```
 
-Результат: `build/distribution/IDE` и `build/distribution/Desktop`, в каждой папке
-программа и `Setup.exe`. Проверка EXE: `.venv/Scripts/python.exe scripts/verify_native.py`.
-Проверка установки/обновления/удаления в тестовой папке: `scripts/verify-installers.ps1`.
+The build creates `build/distribution/IDE` and `build/distribution/Desktop`.
+Each directory contains the application and its `Setup.exe` installer.
 
-## Границы возможностей
+- Verify executable startup: `.venv/Scripts/python.exe scripts/verify_native.py`.
+- Verify installation, upgrade, and removal in a test directory: `scripts/verify-installers.ps1`.
 
-Код запускается в браузерных Workers внутри WebView2. Для части языков используются
-учебные интерпретаторы с ограниченной совместимостью. Терминал поддерживает команды
-DevForge; снимки файлов хранятся локально. Системный shell, серверный FastAPI и Git
-не заменяются учебными средами. Локальный API предназначен для `127.0.0.1`.
+## Scope and runtime limitations
 
-Архитектура настроек и точек расширения: [WORKBENCH.md](IDE/Source/WORKBENCH.md).
-Сторонние компоненты сохраняют свои [лицензии](IDE/Source/licenses/THIRD-PARTY.md).
+Code runs in browser Workers inside WebView2. Some languages use educational
+interpreters with limited compatibility. The terminal supports DevForge commands,
+and file snapshots are stored locally. These educational runtimes do not replace
+a system shell, a production FastAPI server, or Git. The local API is intended
+for use on `127.0.0.1`.
+
+See [WORKBENCH.md](IDE/Source/WORKBENCH.md) for configuration and extension points.
+Third-party components retain their [original licenses](IDE/Source/licenses/THIRD-PARTY.md).

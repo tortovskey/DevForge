@@ -1,16 +1,21 @@
-# Сообщения об уязвимостях
+# Reporting security vulnerabilities
 
-Для версии 1.0.x принимаются сообщения об ошибках безопасности. Используйте
-Private vulnerability reporting на вкладке Security репозитория, если функция доступна.
-Не публикуйте действующие токены, пароли или персональные данные в Issues.
+Security reports are accepted for version 1.0.x. Use private vulnerability reporting
+on the repository's Security tab when available. Do not post active tokens,
+passwords, or personal data in public issues.
 
-В отчёте укажите версию, Windows/браузер, шаги воспроизведения, ожидаемое и фактическое
-поведение. Для воспроизведения используйте новую локальную учётную запись и тестовый проект.
+Include the application version, Windows/browser version, steps to reproduce,
+and the expected and actual behavior. Use a fresh local account and a test project
+when preparing a reproduction.
 
-Приложение рассчитано на одного пользователя компьютера. Локальный HTTP-сервер
-слушает `127.0.0.1`; его нельзя открывать в интернет. Выполнение кода происходит
-в ограниченных Workers. Python-пакеты учебной среды не заменяют полноценный сервер
-FastAPI или системный Python. Терминал выполняет встроенные команды DevForge.
+## Deployment and execution model
 
-Личные данные и проекты находятся в `%LOCALAPPDATA%/DevForge/data` (Desktop) или
-`%LOCALAPPDATA%/DevForgeIDE/data` (IDE). Они не входят в публичный репозиторий.
+DevForge is intended for an individual computer user. Its local HTTP server listens
+on `127.0.0.1` and must not be exposed to the internet. User code executes in
+restricted Workers. Educational Python packages do not replace a production
+FastAPI server or the system Python environment. The terminal runs DevForge's
+built-in commands.
+
+Personal data and projects are stored in `%LOCALAPPDATA%/DevForge/data` for Desktop
+and `%LOCALAPPDATA%/DevForgeIDE/data` for IDE. They are excluded from the public
+repository.

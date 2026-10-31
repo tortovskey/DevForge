@@ -1,11 +1,13 @@
-# Участие в DevForge
+# Contributing to DevForge
 
-DevForge распространяется под MIT. Рабочие исходники находятся в `IDE/Source/`;
-папки `IDE` и `Desktop` также служат местом для локальных сборок, которые Git игнорирует.
+DevForge is licensed under MIT. Development sources are in `IDE/Source/`.
+The top-level `IDE` and `Desktop` directories also hold local application builds,
+which Git ignores.
 
-1. Создайте fork и ветку для одного изменения.
-2. Установите зависимости по README и запустите проверки ниже.
-3. Опишите проблему, изменение и проверку в pull request. Для интерфейса приложите снимок.
+1. Fork the repository and create a branch for one focused change.
+2. Install the dependencies using the README and run the checks below.
+3. Describe the problem, the resulting behavior, and your validation in the pull request.
+   Include a screenshot for interface changes.
 
 ```powershell
 cd IDE/Source
@@ -18,13 +20,15 @@ npm run test:runner
 npm run build
 ```
 
-Для браузерных тестов запустите API и Vite в отдельных терминалах по README,
-затем `npm test -- ide.spec.ts security.spec.ts workbench.spec.ts`.
-Тесты используют отдельные учётные записи и временные базы; личные данные не нужны.
+For browser tests, start the API and Vite in separate terminals as described in the
+README, then run `npm test -- ide.spec.ts security.spec.ts workbench.spec.ts`.
+Tests use separate accounts and temporary databases; personal data is not needed.
 
-Темы, шрифты, команды и раскладки описаны в `frontend/src/ide/config.ts`.
-Добавляя настройку, обновите типы, `backend/app/ide_settings.py`, интерфейс и проверки.
-Формат профиля версионируется отдельно от версии приложения.
+Themes, fonts, commands, and layouts are defined in `frontend/src/ide/config.ts`.
+When adding a preference, update its types, `backend/app/ide_settings.py`, the
+preferences interface, and relevant checks. The profile format is versioned
+independently of the application.
 
-Не включайте в PR базы данных, токены, `.env`, сборки, `node_modules` или чужие проекты.
-У новых внешних компонентов должны быть совместимая лицензия и запись в `licenses/`.
+Keep databases, tokens, `.env`, generated builds, `node_modules`, and other people's
+projects out of pull requests. New third-party components need a compatible license
+and a notice in `licenses/`.

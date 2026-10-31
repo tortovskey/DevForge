@@ -1,31 +1,33 @@
-# Настраиваемое рабочее место
+# Customizable workbench
 
-При проектировании изучались [открытый layout VS Code](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/browser/layout.ts),
-[раскладки VS Code](https://code.visualstudio.com/docs/configure/custom-layout),
-[профили VS Code](https://code.visualstudio.com/docs/configure/profiles) и
-[tool windows JetBrains](https://www.jetbrains.com/help/idea/tool-windows.html).
-DevForge реализует собственный интерфейс и конфигурацию.
+The workbench design was informed by the [open VS Code layout implementation](https://github.com/microsoft/vscode/blob/main/src/vs/workbench/browser/layout.ts),
+[VS Code layout options](https://code.visualstudio.com/docs/configure/custom-layout),
+[VS Code profiles](https://code.visualstudio.com/docs/configure/profiles), and
+[JetBrains tool windows](https://www.jetbrains.com/help/idea/tool-windows.html).
+DevForge implements its own interface and configuration.
 
-## Где менять поведение
+## Where behavior is defined
 
-| Файл | Ответственность |
+| File | Responsibility |
 |---|---|
-| `frontend/src/ide/config.ts` | `THEMES`, `COMMANDS`, `FONTS`, `LAYOUT_PRESETS`, значения по умолчанию |
-| `frontend/src/styles/workbench.css` | Компоненты и токены цветов `--ide-*` |
-| `frontend/src/components/CodeEditor.tsx` | Перевод настроек в параметры и тему Monaco |
-| `frontend/src/components/IDEResizer.tsx` | Перетаскивание и изменение размера клавиатурой |
-| `frontend/src/services/store.tsx` | Последовательное сохранение и слияние изменений |
-| `backend/app/ide_settings.py` | Типы, границы и проверка профилей |
+| `frontend/src/ide/config.ts` | `THEMES`, `COMMANDS`, `FONTS`, `LAYOUT_PRESETS`, and defaults |
+| `frontend/src/styles/workbench.css` | Components and `--ide-*` color tokens |
+| `frontend/src/components/CodeEditor.tsx` | Mapping preferences to Monaco options and themes |
+| `frontend/src/components/IDEResizer.tsx` | Pointer and keyboard resizing |
+| `frontend/src/services/store.tsx` | Sequential settings saves and patch merging |
+| `backend/app/ide_settings.py` | Profile types, bounds, and validation |
 
-Для новой команды добавьте запись в `COMMANDS`, обработчик в `DevForgeIDE.tsx`,
-идентификатор и стандартное сочетание в серверную схему. Палитра и обработчик клавиш
-используют один реестр. Клавиши определяются через `KeyboardEvent.code`, поэтому
-сочетания не зависят от русской или английской раскладки. F1 зарезервирован для палитры.
+To add a command, register it in `COMMANDS`, add its handler in `DevForgeIDE.tsx`,
+and add its identifier and default binding to the server schema. The command
+palette and keyboard handler share one registry. Keys are identified through
+`KeyboardEvent.code`, so shortcuts work independently of the Russian or English
+keyboard layout. F1 is reserved for the command palette.
 
-## Профили
+## Profiles
 
-Текущая конфигурация хранится в `/api/settings`, коллекция — в `ideProfiles`.
-У каждого профиля есть `id`, видимое `name` и `preferences`. Экспорт имеет оболочку:
+The current configuration is stored through `/api/settings`; saved profiles are
+in `ideProfiles`. Each profile has an `id`, a display `name`, and `preferences`.
+An exported document uses this envelope:
 
 ```json
 {
@@ -33,7 +35,7 @@ DevForge реализует собственный интерфейс и кон�
   "version": 1,
   "profile": {
     "id": "my-workbench",
-    "name": "Моя мастерская",
+    "name": "My workbench",
     "preferences": {
       "theme": "dark",
       "fontSize": 16,
@@ -45,17 +47,20 @@ DevForge реализует собственный интерфейс и кон�
 }
 ```
 
-Непереданные поля получают значения по умолчанию. Полная JSON Schema доступна
-после входа через `GET /api/ide/profile-schema`; `POST /api/ide/validate-profile`
-проверяет документ без записи. Сохранение выполняется отдельным PUT настроек.
-Импорт интерфейса ограничен 64 КБ. Сервер запрещает неизвестные поля, произвольный
-CSS, URL шрифтов, неизвестные команды и дублирующиеся сочетания.
+Omitted fields receive their default values. After authentication, retrieve the
+full JSON Schema from `GET /api/ide/profile-schema`. Use
+`POST /api/ide/validate-profile` to validate a document without writing settings.
+Saving requires a separate settings PUT request.
 
-Доступны шесть цветовых токенов: background, panel, editor, text, muted, border.
-Значения — только `#RRGGBB`. Темы и профили не исполняют JavaScript.
+The interface limits profile imports to 64 KB. The server rejects unknown fields,
+arbitrary CSS, font URLs, unknown commands, and duplicate shortcut assignments.
 
-## Развитие
+Six color tokens are available: background, panel, editor, text, muted, and border.
+Values must use `#RRGGBB`. Themes and profiles do not execute JavaScript.
 
-Это точки расширения исходного кода. Загрузка сторонних VSIX/JAR и динамических
-плагинов пока не реализована. Для новой настройки добавляйте серверную валидацию,
-управление в редакторе настроек и проверку реального поведения Monaco/раскладки.
+## Extending the workbench
+
+These are source-level extension points. Loading third-party VSIX/JAR packages or
+dynamic plugins is not implemented. For a new preference, add server validation,
+a control in the preferences editor, and checks of the actual Monaco or layout
+behavior.

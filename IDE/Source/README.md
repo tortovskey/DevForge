@@ -1,14 +1,16 @@
-# Исходники DevForge 1.0.0
+# DevForge 1.0.0 source code
 
-Инструкции по запуску, проверке и сборке: [README проекта](../../README.md).
-Лицензия: [MIT](../../LICENSE). Две поставки: IDE и Desktop.
+See the [project README](../../README.md) for setup, development, testing, and build
+instructions. DevForge is licensed under [MIT](../../LICENSE) and ships in two
+editions: IDE and Desktop.
 
-- `frontend/src/ide/config.ts`: темы, команды и раскладки.
-- `frontend/src/components/IDECustomization.tsx`: редактор настроек.
-- `backend/app/ide_settings.py`: строгая схема профилей.
-- `frontend/tests/workbench.spec.ts`, `backend/tests/test_ide_settings.py`: проверки настроек.
-- `scripts/build-deliverables.ps1`: EXE и Setup для обеих версий.
-- `WORKBENCH.md`: расширение интерфейса и формата конфигурации.
+- `frontend/src/ide/config.ts`: themes, commands, and layout registries.
+- `frontend/src/components/IDECustomization.tsx`: the preferences editor.
+- `backend/app/ide_settings.py`: strict profile validation.
+- `frontend/tests/workbench.spec.ts` and `backend/tests/test_ide_settings.py`: preference checks.
+- `scripts/build-deliverables.ps1`: executable and Setup builds for both editions.
+- [WORKBENCH.md](WORKBENCH.md): extending the interface and configuration format.
+- [TESTING.md](TESTING.md): verification results and their limits.
 
-Локальные папки `data`, `build`, `release`, `.venv`, `node_modules` исключены из Git.
-Они могут содержать личные данные, журналы и архивы предыдущих сборок.
+Local `data`, `build`, `release`, `.venv`, and `node_modules` directories are excluded
+from Git. They may contain personal data, logs, or archived application builds.

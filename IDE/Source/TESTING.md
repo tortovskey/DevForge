@@ -1,56 +1,55 @@
-# Проверка DevForge 1.0.0
+# DevForge 1.0.0 verification
 
-Дата: 2026-10-31. Windows x64, Python 3.12, Node.js, Chromium/Edge и WebView2.
-Тестовые базы и учётные записи отделены от личных данных.
+Date: 2026-10-31. Environment: Windows x64, Python 3.12, Node.js, Chromium/Edge,
+and WebView2. Test databases and accounts are isolated from personal data.
 
-| Проверка | Результат |
+| Check | Result |
 |---|---|
-| Сервер: `pytest -q` | 75 passed |
-| Исполнение кода и проверка формата синхронизации | 9 passed |
-| Playwright: IDE, production, security, workbench | Проверены 22 сценария |
-| TypeScript и production build | Успешно |
-| Загрузка Clang/SQLite в пустую папку | Успешно, SHA-256 совпадают |
-| Связность учебных материалов | 377 уроков, 0 структурных ошибок |
-| npm audit | 0 известных уязвимостей |
-| pip-audit всего окружения | 63 пакета, 0 известных уязвимостей после обновления pip |
-| Setup IDE и Desktop | Установка, повторная установка/обновление и удаление прошли |
-| Запуск установленных IDE и Desktop | Прошёл; Monaco, иконка, изоляция; Python выводит 42 |
-| Запуск переносимых IDE и Desktop из постороннего каталога | Обе версии прошли |
+| Backend: `pytest -q` | 75 passed |
+| Code execution and sync format validation | 9 passed |
+| Playwright: IDE, production, security, workbench | 22 scenarios verified |
+| TypeScript and production build | Passed |
+| Clang/SQLite downloads into an empty directory | Passed; SHA-256 hashes matched |
+| Curriculum integrity | 377 lessons, 0 structural issues |
+| npm audit | 0 known vulnerabilities |
+| Full Python environment audit | 63 packages, 0 known vulnerabilities after updating pip |
+| IDE and Desktop installers | Installation, reinstall/upgrade, and removal passed |
+| Installed IDE and Desktop startup | Passed; Monaco, icon, isolation; Python output was 42 |
+| Portable IDE and Desktop startup from an unrelated directory | Both passed |
 
-В полном браузерном прогоне прошёл 21 сценарий. Один сценарий автодополнения
-остановился при создании браузерной страницы до запуска кода приложения.
-Отдельный повтор этого сценария прошёл за 7 секунд. Изменения в продукт для
-обхода этого сбоя не вносились.
+The full browser run passed 21 scenarios. One autocomplete scenario stopped during
+browser page creation, before the application code ran. An isolated rerun passed
+in 7 seconds. No product changes were made to work around that infrastructure failure.
 
-## Что покрывается
+## Coverage
 
-- Загрузка редактора без JavaScript-ошибок, сохранение ревизий и черновиков.
-- Редактирование во время сохранения и восстановление после перезагрузки.
-- Python input(), REPL, HTML sandbox и локальные среды исполнения.
-- Запрет доступа пользовательского Worker к API аккаунта и внешней сети.
-- Импорт корректных резервных копий, обработка повреждённых файлов, создание backup.
-- Тема Monaco, реальные параметры шрифта/отступов, сохранение настроек.
-- Перестановка, изменение размеров и восстановление панелей из режима фокуса.
-- Профили JSON, конфликты клавиш, схема JetBrains, палитра с клавиатуры.
-- Закрытие вкладки сохраняет файл; ошибка сохранения настроек допускает повтор.
-- Небольшие окна 760/1000 px и наличие видимых кнопок управления.
+- Editor startup without JavaScript errors, revision saves, and draft recovery.
+- Editing during a save and restoring edits after a reload.
+- Python input(), REPL, HTML sandboxing, and local runtimes.
+- Blocking user Worker access to the account API and external network.
+- Valid backup import, malformed file handling, and automatic backup creation.
+- Monaco themes, actual font/indentation options, and persistent preferences.
+- Panel docking, resizing, and restoration from focus mode.
+- JSON profiles, shortcut conflicts, JetBrains keymaps, and keyboard palette navigation.
+- Closing a tab preserves its file; failed preference saves can be retried.
+- Usable controls at window widths of 760 and 1000 pixels.
 
-При переходе на 1.0 исправлена проверка версии резервных копий в интерфейсе:
-принимаются 1.0.x и прежние 0.4.x/0.5.x. Добавлены серверные и клиентские проверки
-совместимости. Закрытие вкладки больше не вызывает удаление файла.
+The 1.0 update fixed backup version validation in the interface. It accepts 1.0.x
+and older 0.4.x/0.5.x files. Server and client compatibility checks were added.
+Closing a tab no longer invokes file deletion.
 
-## Ограничения проверки
+## Limits of verification
 
-Автотесты покрывают перечисленные сценарии и не доказывают отсутствие любых ошибок.
-Установщики не подписаны сертификатом издателя. Пакет Monaco выдаёт предупреждение
-Vite о размере чанка; сборка завершается успешно. Pytest сообщает предупреждение
-об устаревающем адаптере httpx в Starlette TestClient. Рабочие HTTP-запросы от этого
-не меняются. CI проверяет сервер и сборку frontend на Linux; нативные окна
-и установщики проверялись на Windows.
+Automated checks cover the scenarios above and do not prove that all bugs are
+absent. The installers are not digitally signed. Vite reports a Monaco chunk-size
+warning, but the build succeeds. Pytest reports a deprecated httpx adapter in
+Starlette TestClient; this does not change application HTTP requests. CI checks
+the backend and frontend build on Linux. Native windows and installers were
+verified on Windows.
 
-Локальные подробные журналы находятся в игнорируемой папке `build/release-*`.
-В репозиторий не включаются тестовые базы, пользовательские проекты и журналы сессий.
+Detailed local logs are stored in the ignored `build/release-*` paths. Test
+databases, personal projects, and session logs are excluded from the repository.
 
-В CI сначала создаётся полная production-сборка frontend, затем запускаются
-тесты сред исполнения и сервера. Они используют настоящие собранные файлы:
-Lua bundle, SVG-значок, каталоги assets/runtimes/workers и index.html.
+CI creates a complete production frontend build before running runtime and backend
+checks. These tests use the actual built Lua bundle, SVG icon, assets/runtimes/workers
+directories, and index.html.

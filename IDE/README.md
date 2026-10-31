@@ -1,8 +1,11 @@
 # DevForge IDE 1.0.0
 
-Редактор кода без учебных разделов. Запуск: DevForgeIDE.exe. Установка: Setup.exe.
+A code editor and development workspace without the lesson sections.
 
-Windows 10/11 x64. Данные хранятся в LocalAppData отдельно от программы и сохраняются при удалении.
+- Launch the portable application: `DevForgeIDE.exe`.
+- Install the application: `Setup.exe`.
 
-Лицензия MIT; исходники: https://github.com/tortovskey/DevForge
+Requires Windows 10/11 x64 and Microsoft Edge WebView2. User data is stored separately
+from the application in LocalAppData and is preserved during uninstallation.
 
+Licensed under MIT. [Source code and documentation](https://github.com/tortovskey/DevForge).
