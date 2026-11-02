@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 — 2026-11-02
+
+- Reworked the IDE into a single full-window workbench with a compact toolbar, aligned file explorer, file breadcrumbs, and consistent theme-aware controls.
+- Added visible controls to restore panels and connected the run-file selector to the active editor.
+- Fixed Assembly and Lua project creation: each language now gets its own source file and runnable template instead of SQL. Project templates are checked against all supported languages by TypeScript.
+- Recognized Assembly `.inc` files and C++ `.cxx` files consistently when selecting a runtime.
+
 ## 1.0.0 — 2026-10-31
 
 - Released the source code under MIT, with IDE and Desktop editions for Windows.

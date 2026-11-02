@@ -26,7 +26,7 @@ test('project can be edited and saved repeatedly with current revisions',async({
 
 test('Python input opens its dialog and continues after an answer',async({page})=>{
  await page.goto('/ide');await expect(page.locator('.monaco-editor').first()).toBeVisible();
- await edit(page,'print(int(input())+1)');await page.getByRole('button',{name:'Run',exact:true}).click();
+ await edit(page,'print(int(input())+1)');await page.getByRole('button',{name:'Запустить',exact:true}).click();
  await expect(page.getByRole('dialog',{name:'Программа ожидает ввод'})).toBeVisible({timeout:45000});
  await page.getByLabel('Введите следующую строку').fill('41');await page.getByRole('button',{name:'Отправить',exact:true}).click();
  await expect(page.locator('.fusion-bottom-panel')).toContainText('42');
@@ -57,18 +57,52 @@ test('HTML project renders a sandbox preview without starting a Worker',async({p
  await account(page);
  const p=await (await page.request.post('/api/projects',{data:{name:'HTML preview',language:'html-css',files:[{name:'index.html',content:'<h1>Forge preview</h1><script>parent.__unsafe=true</script>'}]}})).json();
  await page.goto('/projects/'+p.id);await expect(page.locator('.monaco-editor')).toBeVisible();
- await page.getByRole('button',{name:'Run',exact:true}).click();
+ await page.getByRole('button',{name:'Запустить',exact:true}).click();
  await expect(page.frameLocator('iframe[title="Предпросмотр HTML и CSS"]').getByRole('heading',{name:'Forge preview'})).toBeVisible();
  expect(await page.evaluate(()=>(window as any).__unsafe)).toBeUndefined();
 });
 
 test('Python REPL evaluates expressions and retains variables',async({page})=>{
  await page.goto('/ide');await expect(page.locator('.monaco-editor').first()).toBeVisible();
- await page.getByRole('button',{name:'Python REPL & Переменные',exact:true}).click();
+ await page.getByRole('button',{name:'Python REPL',exact:true}).click();
  const input=page.getByPlaceholder('Вычислить выражение в Python...');
  await input.fill('x = 6');await input.press('Enter');
  await expect(page.locator('.fusion-bottom-panel')).toContainText('x = 6',{timeout:45000});
  await expect(page.locator('.repl-vars-half')).toContainText('6',{timeout:45000});
  await input.fill('x * 7');await input.press('Enter');
  await expect(page.locator('.fusion-bottom-panel')).toContainText('42',{timeout:45000});
+});
+
+for (const language of ['assembly','lua'] as const) {
+ test(`new ${language} project creates and runs its own template instead of SQL`,async({page})=>{
+  await account(page);
+  const workers:string[]=[];
+  page.on('worker',worker=>workers.push(worker.url()));
+  await page.goto('/projects');
+  await page.getByRole('button',{name:'Новый проект',exact:true}).click();
+  await page.getByLabel('Название проекта').fill(`${language} template regression`);
+  await page.getByLabel('Язык проекта',{exact:true}).selectOption(language);
+  await page.getByRole('button',{name:'Создать проект',exact:true}).click();
+  await expect(page.locator('.monaco-editor')).toBeVisible();
+  const filename=language==='assembly'?'main.asm':'main.lua';
+  await expect(page.locator('.fusion-tab-bar')).toContainText(filename);
+  await expect(page.locator('.fusion-tab-bar')).not.toContainText('query.sql');
+  await expect(page.locator('.lang-badge')).toContainText(language==='assembly'?'Assembly':'Lua');
+  const project=await(await page.request.get('/api/projects/'+page.url().split('/').pop())).json();
+  expect(project.language).toBe(language);
+  expect(project.files[0].name).toBe(filename);
+  await page.getByRole('button',{name:'Запустить',exact:true}).click();
+  await expect(page.locator('.panel-output-view .output-content')).toContainText('Hello, DevForge!');
+  expect(workers.some(url=>url.endsWith(`/workers/${language}.js`))).toBe(true);
+ });
+}
+
+test('run file selector executes the selected file',async({page})=>{
+ await account(page);
+ const p=await(await page.request.post('/api/projects',{data:{name:'Run selection',language:'python',files:[{name:'main.py',content:'print("first file")'},{name:'second.py',content:'print("selected file")'}]}})).json();
+ await page.goto('/projects/'+p.id);await expect(page.locator('.monaco-editor')).toBeVisible();
+ await page.locator('.fusion-topbar').getByRole('combobox',{name:'Файл для запуска',exact:true}).selectOption('1');
+ await expect(page.locator('.fusion-tab.active')).toContainText('second.py');
+ await page.getByRole('button',{name:'Запустить',exact:true}).click();
+ await expect(page.locator('.panel-output-view')).toContainText('selected file');
 });

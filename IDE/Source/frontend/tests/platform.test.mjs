@@ -7,7 +7,7 @@ const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.
 const {validateSyncBundle,readSyncFile}=await import('data:text/javascript;base64,'+Buffer.from(compiled).toString('base64'));
 const bundle=version=>({format:'devforge-sync',version,checksum:'a'.repeat(64),account:{username:'test'},data:{completions:[],projects:[],attempts:[],drafts:[],settings:{}}});
 test('sync accepts release 1.0 and legacy 0.4/0.5 backups',()=>{
-  for(const version of ['0.4.0','0.5.0','0.5.12','1.0.0','1.0.12'])assert.equal(validateSyncBundle(bundle(version)).version,version);
+  for(const version of ['0.4.0','0.5.0','0.5.12','1.0.0','1.0.1','1.0.12'])assert.equal(validateSyncBundle(bundle(version)).version,version);
   for(const version of ['1.1.0','0.50.0','2.0.0','1.0.0\n',undefined])assert.throws(()=>validateSyncBundle(bundle(version)));
 });
 test('sync rejects malformed and oversized files before a preview',async()=>{

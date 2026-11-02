@@ -32,7 +32,7 @@ export const FONTS = {
 export type ColorToken = 'background'|'panel'|'editor'|'text'|'muted'|'border';
 export interface WorkbenchTheme {id:Exclude<IDEPreferences['theme'],'inherit'>;name:string;description:string;light:boolean;colors:Record<ColorToken,string>;keyword:string;string:string;number:string}
 export const THEMES:WorkbenchTheme[] = [
-  {id:'forge',name:'Forge Blue',description:'Синие тона мастерской',light:false,colors:{background:'#0c1420',panel:'#111d2c',editor:'#101924',text:'#dce8f4',muted:'#94a9bf',border:'#29384b'},keyword:'#8eafff',string:'#9ad7b4',number:'#e9b77c'},
+  {id:'forge',name:'Forge Blue',description:'Графит с голубым акцентом',light:false,colors:{background:'#16191f',panel:'#1b1e25',editor:'#20232b',text:'#dce1eb',muted:'#969eaf',border:'#303540'},keyword:'#a7baff',string:'#a6c99b',number:'#dfb481'},
   {id:'code',name:'Code Dark',description:'Нейтральный рабочий стол',light:false,colors:{background:'#181818',panel:'#1f1f1f',editor:'#1f1f1f',text:'#d4d4d4',muted:'#a1a1a1',border:'#363636'},keyword:'#82b9e8',string:'#ce9178',number:'#b5cea8'},
   {id:'graphite',name:'Graphite',description:'Тёплый графит',light:false,colors:{background:'#202124',panel:'#2b2d30',editor:'#24262a',text:'#d6d8dd',muted:'#a0a5b1',border:'#40434b'},keyword:'#d5a4f7',string:'#a8c58f',number:'#7bb7cf'},
   {id:'nord',name:'Nord',description:'Мягкие северные оттенки',light:false,colors:{background:'#242a36',panel:'#2e3440',editor:'#2e3440',text:'#eceff4',muted:'#b0bbcc',border:'#4c566a'},keyword:'#81a1c1',string:'#a3be8c',number:'#b48ead'},

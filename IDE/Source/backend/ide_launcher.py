@@ -43,7 +43,7 @@ def main():
     webview.settings['ALLOW_DOWNLOADS'] = True
     webview.settings['OPEN_EXTERNAL_LINKS_IN_BROWSER'] = True
     window = webview.create_window(
-        'DevForge IDE 1.0.0',
+        'DevForge IDE 1.0.1',
         url,
         width=1500,
         height=980,
@@ -84,5 +84,5 @@ if __name__ == '__main__':
         main()
     except Exception as error:
         import ctypes
-        ctypes.windll.user32.MessageBoxW(0, f'Не удалось открыть DevForge IDE.\n{error}\nПроверьте наличие Microsoft Edge WebView2 Runtime.', 'DevForge IDE 1.0.0', 16)
+        ctypes.windll.user32.MessageBoxW(0, f'Не удалось открыть DevForge IDE.\n{error}\nПроверьте наличие Microsoft Edge WebView2 Runtime.', 'DevForge IDE 1.0.1', 16)
         raise

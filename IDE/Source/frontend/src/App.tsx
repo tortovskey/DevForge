@@ -39,9 +39,10 @@ function Shell(){
   const currentEntry = activeNav.find(([path])=>path==='/'?location.pathname==='/':location.pathname.startsWith(path));
   const title = currentEntry ? currentEntry[1] : (isIde ? 'DevForge IDE' : 'Settings');
   const workspace = isIde || location.pathname==='/ide'||/^\/(learn|projects)\/.+/.test(location.pathname);
+  const editorOpen = location.pathname==='/ide'||/^\/projects\/.+/.test(location.pathname)||(isIde&&location.pathname==='/');
 
   return (
-    <div className={`app-shell ${isIde ? 'ide-only-edition' : ''} ${isIde&&workspace?'ide-focused':''}`}>
+    <div className={`app-shell ${isIde ? 'ide-only-edition' : ''} ${isIde&&workspace?'ide-focused':''} ${editorOpen?'editor-open':''}`}>
       <aside className={`sidebar ${menu?'mobile-open':''}`}>
         <NavLink className="brand" to={isIde ? "/ide" : "/"} onClick={()=>setMenu(false)}>
           <span className="brand-mark" style={isIde ? {background:'rgba(0,194,255,0.15)',borderColor:'#00c2ff'} : {}}>
@@ -131,7 +132,7 @@ function Shell(){
                 <span style={{display:'inline-flex',alignItems:'center',gap:'6px',padding:'4px 10px',borderRadius:'16px',background:'rgba(0,194,255,0.1)',border:'1px solid rgba(0,194,255,0.3)',color:'#00c2ff',fontSize:'12px',fontWeight:600}}>
                   <ForgeIcon size={14}/> Standalone IDE
                 </span>
-                <span className="build-label">v1.0.0 <ArrowUpRight size={12}/></span>
+                <span className="build-label">v1.0.1 <ArrowUpRight size={12}/></span>
               </div>
             ) : (
               <>
@@ -139,7 +140,7 @@ function Shell(){
                   <button className={settings.mode==='learning'?'selected':''} onClick={()=>updateSettings({mode:'learning'}).then(()=>navigate('/learn')).catch(e=>notify(String(e)))}>Learning</button>
                   <button className={settings.mode==='developer'?'selected':''} onClick={()=>updateSettings({mode:'developer'}).then(()=>navigate('/projects')).catch(e=>notify(String(e)))}>Developer</button>
                 </div>
-                <span className="build-label">v1.0.0 <ArrowUpRight size={12}/></span>
+                <span className="build-label">v1.0.1 <ArrowUpRight size={12}/></span>
               </>
             )}
           </div>

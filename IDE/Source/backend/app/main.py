@@ -23,7 +23,7 @@ async def lifespan(_app: FastAPI):
     Base.metadata.create_all(engine)
     yield
 
-app = FastAPI(title='DevForge local API', version='1.0.0', lifespan=lifespan)
+app = FastAPI(title='DevForge local API', version='1.0.1', lifespan=lifespan)
 app.include_router(auth_router)
 from .learning import router as learning_router
 from .ai import router as ai_router
@@ -48,7 +48,7 @@ def lesson_or_404(lesson_id: str):
 
 @app.get('/api/health')
 def health():
-    return {'status': 'ok', 'version': '1.0.0', 'execution': 'browser-workers'}
+    return {'status': 'ok', 'version': '1.0.1', 'execution': 'browser-workers'}
 
 @app.get('/api/platform')
 def platform_info():
@@ -57,7 +57,7 @@ def platform_info():
     return {
         'platform': 'desktop' if is_desktop else 'web',
         'mode': mode,
-        'version': '1.0.0',
+        'version': '1.0.1',
         'standalone': True,
         'storage': str(ROOT)
     }

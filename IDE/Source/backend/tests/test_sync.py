@@ -25,7 +25,7 @@ def register_other(client):
 
 def test_release_1_reads_legacy_05_backups(client):
     bundle = export(client)
-    assert bundle['version'] == '1.0.0'
+    assert bundle['version'] == '1.0.1'
     bundle['version'] = '0.5.0'
     result = client.post('/api/sync/import', json={'bundle': bundle})
     assert result.status_code == 200, result.text

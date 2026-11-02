@@ -181,7 +181,7 @@ def export_data(account: Account = Depends(current_account), db: Session = Depen
         'settings': SettingsIn(**setting.value).model_dump() if setting else {},
         'assessments': [{'language': a.language, 'value': a.value} for a in rows(Assessment)],
     }
-    return {'format': 'devforge-sync', 'version': '1.0.0', 'exported_at': now(),
+    return {'format': 'devforge-sync', 'version': '1.0.1', 'exported_at': now(),
             'platform': 'desktop' if os.environ.get('DEVFORGE_DESKTOP') else 'web',
             'account': {'username': account.username, 'displayName': account.display_name},
             'data': data, 'checksum': checksum(data)}

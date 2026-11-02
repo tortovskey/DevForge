@@ -1,4 +1,4 @@
-# DevForge Desktop 1.0.0
+# DevForge Desktop 1.0.1
 
 Programming lessons and the IDE together in a dedicated desktop window.
 

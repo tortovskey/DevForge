@@ -1,10 +1,10 @@
-# DevForge 1.0.0
+# DevForge 1.0.1
 
 A customizable coding workspace for Windows, built around the Monaco editor.
 DevForge brings together local code execution, programming lessons, and a flexible
 IDE workspace. The source code is available under the [MIT license](LICENSE).
 
-**[Download installers](https://github.com/tortovskey/DevForge/releases/tag/v1.0.0)** ·
+**[Download installers](https://github.com/tortovskey/DevForge/releases/tag/v1.0.1)** ·
 [Changelog](CHANGELOG.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) ·
 [Test report](IDE/Source/TESTING.md)
 
@@ -17,7 +17,7 @@ IDE workspace. The source code is available under the [MIT license](LICENSE).
 | IDE | Code editor, projects, and development tools | `IDE/Setup.exe` | `IDE/DevForgeIDE.exe` |
 | Desktop | Programming lessons and the IDE in one desktop window | `Desktop/Setup.exe` | `Desktop/DevForge.exe` |
 
-Version 1.0.0 ships as IDE and Desktop editions. The standalone Web edition has been
+Version 1.0.1 ships as IDE and Desktop editions. The standalone Web edition has been
 removed. Both editions use the blue forge icon, featuring a furnace and chimney.
 
 DevForge requires Windows 10/11 x64 and Microsoft Edge WebView2. If WebView2 is

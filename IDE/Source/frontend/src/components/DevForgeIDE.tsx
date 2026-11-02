@@ -1,11 +1,12 @@
 import {lazy,Suspense,useEffect,useRef,useState} from 'react';
+import {Link} from 'react-router-dom';
 import {
   Files,Search,ListTree,Database,Send,GitBranch,Play,Square,RotateCcw,Save,
   Map,Settings,Terminal,AlertCircle,CheckCircle2,Plus,Trash2,Edit3,
   Maximize2,Minimize2,ChevronRight,ChevronDown,Code2,Command,Sparkles,
   Laptop,Globe,RefreshCw,FileCode2,X,Copy,Check,Columns,FolderPlus,
   Split,History,ListTodo,CheckSquare,Bug,AlignLeft,FileText,Sliders,
-  Download,Upload,Folder,File
+  Download,Upload,Folder,File,FolderOpen,PanelLeft,PanelBottom,BookOpen
 } from 'lucide-react';
 const CodeEditor = lazy(() => import('./CodeEditor'));
 import Output from './Output';
@@ -15,13 +16,20 @@ import AIHelp from './AIHelp';
 import {LANGUAGE_NAMES, EXTENSIONS} from '../types';
 import {api} from '../services/api';
 import {useStore} from '../services/store';
+import {useAuth} from '../services/auth';
 import {PlatformAdapter} from '../services/platform';
 import type {Project, RunResult} from '../types';
 import {ForgeIcon} from './ForgeIcon';
 import IDECustomization from './IDECustomization';
 import IDEResizer from './IDEResizer';
 import {COMMANDS,bindings,displayKey,keyString,resolveTheme,workbenchStyle,type CommandId,type IDEPreferences} from '../ide/config';
-const editorLanguage=(name:string)=>({py:'python',ts:'typescript',js:'javascript',html:'html',css:'css',sql:'sql',c:'c',h:'c',cpp:'cpp',hpp:'cpp',cc:'cpp',cxx:'cpp',cs:'csharp',m:'objective-c',rs:'rust',java:'java',lua:'lua',md:'markdown',json:'json',txt:'plaintext',asm:'assembly',s:'assembly',bsl:'1c'}[name.split('.').pop()?.toLowerCase()||'']||'plaintext');
+const editorLanguage=(name:string)=>({py:'python',ts:'typescript',js:'javascript',html:'html',css:'css',sql:'sql',c:'c',h:'c',cpp:'cpp',hpp:'cpp',cc:'cpp',cxx:'cpp',cs:'csharp',m:'objective-c',rs:'rust',java:'java',lua:'lua',md:'markdown',json:'json',txt:'plaintext',asm:'assembly',s:'assembly',inc:'assembly',bsl:'1c'}[name.split('.').pop()?.toLowerCase()||'']||'plaintext');
+
+function FileIcon({name}: {name:string}) {
+  const language=editorLanguage(name);
+  const Icon=language==='markdown'||language==='plaintext'?FileText:language==='sql'?Database:FileCode2;
+  return <Icon size={15} className={`ide-file-icon file-${language}`} aria-hidden="true"/>;
+}
 
 interface SymbolItem {
   name: string;
@@ -69,6 +77,7 @@ interface ProblemItem {
 
 export default function DevForgeIDE({projectId}: {projectId?: string}) {
   const {settings, updateSettings, updateIDE, notify, account} = useStore();
+  const {isIde}=useAuth();
   const [preferencesOpen,setPreferencesOpen]=useState(false),[zen,setZen]=useState(false);
   const [hiddenTabs,setHiddenTabs]=useState<string[]>([]);
   const [sizeDraft,setSizeDraft]=useState<Partial<IDEPreferences>>({});
@@ -191,7 +200,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
       baseline: '',
       content: (
         '# DevForge IDE Project\n\n' +
-        'Профессиональный микросервис, созданный в **DevForge IDE 1.0.0**.\n\n' +
+        'Профессиональный микросервис, созданный в **DevForge IDE 1.0.1**.\n\n' +
         '## Возможности среды:\n' +
         '- **VS Code Activity Bar**: Проводник, Поиск/Замена, Git, AST Outline, DataGrip DB, REST API, TODO, Settings.\n' +
         '- **PyCharm Run Configurations**: Быстрый запуск, отладка, интерактивная REPL консоль с инспектором переменных.\n' +
@@ -264,7 +273,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
 
   // Terminal State (Interactive Shell)
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
-    'DevForge IDE Terminal [Version 1.0.0 Windows x64]',
+    'DevForge IDE Terminal [Version 1.0.1 Windows x64]',
     'Type "help" to view built-in commands or "run" to execute current project.',
     ''
   ]);
@@ -282,11 +291,6 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
   // Git State
   const [gitCommits, setGitCommits] = useState<GitCommit[]>(()=>{try{return JSON.parse(localStorage.getItem(`snapshots:${account.id}:${projectId||'scratch'}`)||'[]');}catch{return [];}});
   const [commitMessage, setCommitMessage] = useState('');
-
-  // Run/Debug Configuration
-  const [runConfig, setRunConfig] = useState<'active' | 'main' | 'test'>('active');
-  const [cliArgs, setCliArgs] = useState('--port 8766 --reload');
-  const [envVars, setEnvVars] = useState('DEVFORGE_ENV=development\nDEBUG=1');
 
   // AI Assistant Drawer
   const [showAI, setShowAI] = useState(false);
@@ -318,14 +322,14 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
     extension === 'ts' ? 'typescript' :
     extension === 'js' ? 'javascript' :
     extension === 'c' || extension === 'h' ? 'c' :
-    extension === 'cpp' || extension === 'hpp' || extension === 'cc' ? 'cpp' :
+    extension === 'cpp' || extension === 'hpp' || extension === 'cc' || extension === 'cxx' ? 'cpp' :
     extension === 'cs' ? 'csharp' :
     extension === 'm' ? 'objc' :
     extension === 'rs' ? 'rust' :
     extension === 'bsl' ? '1c' :
     extension === 'java' ? 'java' :
     extension === 'lua' ? 'lua' :
-    extension === 'asm' || extension === 's' ? 'assembly' :
+    extension === 'asm' || extension === 's' || extension === 'inc' ? 'assembly' :
     extension === 'sql' ? (project?.language==='postgresql'?'postgresql':'sql') :
     extension === 'html' ? 'html-css' :
     extension === 'css' ? 'html-css' : 'python'
@@ -888,23 +892,14 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
       {/* 1. TOP PYCHARM & VS CODE RUN & NAVIGATION BAR                       */}
       {/* =================================================================== */}
       <header className="fusion-topbar">
-        <div className="fusion-breadcrumbs ide-file-path">
-          <span className="fusion-brand-pill" title="DevForge IDE 1.0.0">
-            <ForgeIcon size={16} /> DevForge IDE
-          </span>
-          <span className="sep">/</span>
-          <span className="proj-title">{project?.name || 'Workspace'}</span>
-          <span className="sep">›</span>
-          <span className="active-file-crumb">
-            <FileCode2 size={13} className="crumb-icon" />
-            {activeFile.name}
-          </span>
-          {symbols.length > 0 && (
-            <>
-              <span className="sep">›</span>
-              <span className="symbol-crumb">🔷 {symbols[0].name}</span>
-            </>
-          )}
+        <div className="ide-workspace-heading">
+          <Link className="fusion-brand-pill" to={isIde?'/projects':'/'} title={isIde?'Все проекты':'Главная DevForge'}>
+            <ForgeIcon size={25} /><span>DevForge<span className="ide-edition">IDE</span></span>
+          </Link>
+          <span className="ide-heading-divider"/>
+          <Link className="ide-project-switch" to="/projects" title="Открыть другой проект">
+            <FolderOpen size={15}/><span>{project?.name || 'Рабочая область'}</span><ChevronDown size={12}/>
+          </Link>
         </div>
 
         {/* Global Search Everywhere Trigger (Double Shift / Ctrl+P) */}
@@ -914,7 +909,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
           title="Поиск везде: файлы, команды, символы (Double Shift / Ctrl+P / F1)"
         >
           <Search size={13} />
-          <span>Поиск файлов, команд, символов…</span>
+          <span>Поиск файлов и команд</span>
           <kbd>{displayKey(keys.files)}</kbd>
         </button>
 
@@ -923,71 +918,29 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
           <div className="fusion-run-select">
             <span className="run-dot" />
             <select
-              value={runConfig}
-              onChange={e => setRunConfig(e.target.value as any)}
+              aria-label="Файл для запуска"
+              value={activeFileIndex}
+              onChange={e => setActiveFileIndex(Number(e.target.value))}
               className="run-config-dropdown"
             >
-              <option value="active">{activeFile.name}</option>
-              <option value="main">main.py (FastAPI Server)</option>
-              <option value="test">test_api.py (Pytest Suite)</option>
+              {files.map((file,index)=><option key={file.name} value={index}>{file.name}</option>)}
             </select>
           </div>
 
           {busy ? (
             <button className="fusion-btn stop" onClick={() => runner.current?.stop()} title="Остановить программу (Ctrl+F2)">
-              <Square size={13} /> Stop
+              <Square size={13} /> Стоп
             </button>
           ) : (
             <button className="fusion-btn run" disabled={['md','txt','json'].includes(extension)} onClick={() => void runCode()} title={['md','txt','json'].includes(extension)?'Этот файл содержит документацию или данные':'Запустить программу (Shift+F10 / Ctrl+Enter)'}>
-              <Play size={13} fill="currentColor" /> Run
+              <Play size={13} fill="currentColor" /> Запустить
             </button>
           )}
-
-          <div className="fusion-runtime-chip" title={`Рантайм: ${LANGUAGE_NAMES[detectedLanguage]}`}>
-            <span className="lang-icon">{detectedLanguage === 'python' ? '🐍' : '⚡'}</span>
-            <span>{LANGUAGE_NAMES[detectedLanguage]}</span>
-          </div>
 
           {/* Quick Action Buttons */}
           <div className="fusion-top-actions">
             <button className="fusion-icon-btn" aria-label="Настроить IDE" title={`Настроить IDE (${displayKey(keys.settings)})`} onClick={()=>setPreferencesOpen(true)}><Sliders size={16}/></button>
             <button className="fusion-icon-btn" aria-label={zen?'Вернуть панели':'Режим фокуса'} title={displayKey(keys.zen)} onClick={()=>setZen(v=>!v)}>{zen?<Minimize2 size={14}/>:<Maximize2 size={14}/>}</button>
-            <button
-              className={`fusion-icon-btn ${isSplit ? 'active' : ''}`}
-              onClick={() => setIsSplit(!isSplit)}
-              title="Разделить окно редактора (Split View: Ctrl+\)"
-            >
-              <Columns size={14} />
-            </button>
-            <button
-              className={`fusion-icon-btn ${isDiffMode ? 'active' : ''}`}
-              onClick={() => setIsDiffMode(!isDiffMode)}
-              title="Сравнение версий (Diff Viewer)"
-            >
-              <Split size={14} />
-            </button>
-            <button
-              className="fusion-icon-btn"
-              onClick={formatDocument}
-              title="Форматировать документ (Shift+Alt+F / Ctrl+Alt+L)"
-            >
-              <AlignLeft size={14} />
-            </button>
-            <button
-              className={`fusion-icon-btn ${showAI ? 'active' : ''}`}
-              onClick={() => setShowAI(!showAI)}
-              title="AI Ассистент кода"
-            >
-              <Sparkles size={14} /> AI
-            </button>
-            <button
-              className={`fusion-icon-btn ${settings.minimap ? 'active' : ''}`}
-              onClick={() => updateSettings({minimap: !settings.minimap})}
-              aria-label="Переключить миникарту"
-              title="Миникарта"
-            >
-              <Map size={14} />
-            </button>
             <button className="fusion-icon-btn" onClick={() => void saveProject()} aria-label="Сохранить код" title="Сохранить проект (Ctrl+S)">
               <Save size={14} />
             </button>
@@ -1000,7 +953,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
       {/* =================================================================== */}
       <div className="fusion-main-layout">
         {/* VS Code Left Activity Bar */}
-        <aside className="fusion-activity-bar">
+        <aside className="fusion-activity-bar" aria-label="Инструменты IDE">
           <div className="activity-group-top">
             <button
               className={`activity-btn ${activeTool === 'explorer' && sidebarOpen ? 'active' : ''}`}
@@ -1028,7 +981,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 if (activeTool === 'git') setSidebarOpen(!sidebarOpen);
                 else { setActiveTool('git'); setSidebarOpen(true); }
               }}
-              title="Контроль версий и коммиты (Ctrl+Shift+G)"
+              title="Локальные снимки проекта"
             >
               <GitBranch size={20} />
             </button>
@@ -1038,7 +991,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 if (activeTool === 'structure') setSidebarOpen(!sidebarOpen);
                 else { setActiveTool('structure'); setSidebarOpen(true); }
               }}
-              title="Структура файла (PyCharm Structure / AST Outline)"
+              title="Структура файла"
             >
               <ListTree size={20} />
             </button>
@@ -1048,7 +1001,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 if (activeTool === 'database') setSidebarOpen(!sidebarOpen);
                 else { setActiveTool('database'); setSidebarOpen(true); }
               }}
-              title="База данных (JetBrains DataGrip Tool)"
+              title="База данных"
             >
               <Database size={20} />
             </button>
@@ -1058,7 +1011,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 if (activeTool === 'api') setSidebarOpen(!sidebarOpen);
                 else { setActiveTool('api'); setSidebarOpen(true); }
               }}
-              title="REST API Client (Thunder Client / HTTP Runner)"
+              title="Клиент REST API"
             >
               <Send size={20} />
             </button>
@@ -1079,13 +1032,15 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 if (activeTool === 'debug') setSidebarOpen(!sidebarOpen);
                 else { setActiveTool('debug'); setSidebarOpen(true); }
               }}
-              title="Конфигурация запуска и отладки (Run / Debug)"
+              title="Запуск программы"
             >
               <Sliders size={20} />
             </button>
           </div>
 
           <div className="activity-group-bottom">
+            <Link className="activity-btn" to="/projects" aria-label="Все проекты" title="Все проекты"><FolderOpen size={20}/></Link>
+            <Link className="activity-btn" to="/documentation" aria-label="Документация" title="Документация"><BookOpen size={20}/></Link>
             <button
               className={`activity-btn ${preferencesOpen ? 'active' : ''}`}
               onClick={() => setPreferencesOpen(true)}
@@ -1104,7 +1059,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
             {activeTool === 'explorer' && (
               <div className="sidebar-content">
                 <div className="sidebar-header">
-                  <span>ПРОЕКТ: {project?.name || 'WORKSPACE'}</span>
+                  <span>Проводник</span>
                   <div className="sidebar-actions">
                     <button onClick={createNewFile} title="Создать файл"><Plus size={14} /></button>
                     <button onClick={() => renameFile(activeFileIndex)} title="Переименовать файл (F2)"><Edit3 size={14} /></button>
@@ -1112,42 +1067,41 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                   </div>
                 </div>
 
-                <div className="open-editors-block">
-                  <small className="section-title">ОТКРЫТЫЕ РЕДАКТОРЫ</small>
+                <details className="open-editors-block">
+                  <summary className="ide-tree-heading"><ChevronRight size={13}/>Открытые файлы <span className="ide-count">{files.filter(f=>!hiddenTabs.includes(f.name)).length}</span></summary>
                   <div className="open-editors-list">
                     {files.map((file, idx) => hiddenTabs.includes(file.name)?null:(
-                      <div
+                      <button
                         key={file.name}
                         className={`open-editor-row ${idx === activeFileIndex ? 'active' : ''}`}
                         onClick={() => setActiveFileIndex(idx)}
                       >
-                        <FileCode2 size={13} className="tree-file-icon" />
+                        <FileIcon name={file.name}/>
                         <span className="file-name">{file.name}</span>
                         {dirty && idx === activeFileIndex && <span className="dirty-indicator" />}
-                      </div>
+                      </button>
                     ))}
                   </div>
-                </div>
+                </details>
 
                 <div className="file-tree-list">
-                  <small className="section-title">ФАЙЛЫ ПРОЕКТА</small>
-                  {files.map((file, idx) => {
-                    const ext = file.name.split('.').pop()?.toLowerCase();
-                    return (
+                  <details open>
+                    <summary className="ide-tree-heading ide-project-root"><ChevronRight size={13}/><FolderOpen size={15}/><span>{project?.name || 'Рабочая область'}</span></summary>
+                  {files.map((file, idx) => (
                       <button
                         key={file.name}
                         className={`tree-file-row ${idx === activeFileIndex ? 'active' : ''}`}
+                        aria-current={idx === activeFileIndex ? 'true' : undefined}
                         onClick={() => setActiveFileIndex(idx)}
                       >
-                        <span className="file-lang-badge">
-                          {ext === 'py' ? '🐍' : ext === 'md' ? '📝' : ext === 'sql' ? '🗄️' : '📄'}
-                        </span>
+                        <FileIcon name={file.name}/>
                         <span className="tree-file-name">{file.name}</span>
                         {dirty && idx === activeFileIndex && <span className="dirty-indicator" />}
                       </button>
-                    );
-                  })}
+                  ))}
+                  </details>
                 </div>
+                <div className="ide-explorer-footer"><Folder size={13}/><span>Файлов: {files.length}</span><span className="ide-local-label"><span className="green-dot"/>Локально</span></div>
               </div>
             )}
 
@@ -1216,11 +1170,11 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
             {activeTool === 'git' && (
               <div className="sidebar-content">
                 <div className="sidebar-header">
-                  <span>SOURCE CONTROL (GIT)</span>
+                  <span>Локальные снимки</span>
                 </div>
                 <div className="git-status-card">
                   <div className="git-branch-info">
-                    <GitBranch size={16} /> <strong>main</strong> <small>(Local snapshots)</small>
+                    <History size={16} /> <strong>История проекта</strong>
                   </div>
                   <div className="commit-box">
                     <textarea
@@ -1457,35 +1411,27 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
             {activeTool === 'debug' && (
               <div className="sidebar-content">
                 <div className="sidebar-header">
-                  <span>RUN / DEBUG CONFIG</span>
+                  <span>Запуск программы</span>
                 </div>
                 <div className="debug-form">
                   <div className="form-group">
-                    <label>Активная конфигурация:</label>
-                    <select value={runConfig} onChange={e => setRunConfig(e.target.value as any)}>
-                      <option value="active">Текущий открытый файл</option>
-                      <option value="main">FastAPI Uvicorn Сервер</option>
-                      <option value="test">Pytest Тестовый модуль</option>
+                    <label htmlFor="ide-run-file">Файл для запуска</label>
+                    <select id="ide-run-file" value={activeFileIndex} onChange={e => setActiveFileIndex(Number(e.target.value))}>
+                      {files.map((file,index)=><option key={file.name} value={index}>{file.name}</option>)}
                     </select>
                   </div>
                   <div className="form-group">
-                    <label>Аргументы командной строки:</label>
-                    <input
-                      type="text"
-                      value={cliArgs}
-                      onChange={e => setCliArgs(e.target.value)}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Переменные окружения (KEY=VALUE):</label>
+                    <label htmlFor="ide-run-stdin">Входные данные (stdin)</label>
                     <textarea
-                      rows={3}
-                      value={envVars}
-                      onChange={e => setEnvVars(e.target.value)}
+                      id="ide-run-stdin" rows={5}
+                      placeholder="Каждое значение с новой строки"
+                      value={stdin}
+                      onChange={e => setStdin(e.target.value)}
                     />
                   </div>
-                  <button className="button primary compact" style={{width: '100%', marginTop: 8}} onClick={() => void runCode()}>
-                    <Play size={13} fill="currentColor" /> Запустить с этими параметрами
+                  <p className="ide-pref-hint">Среда: {LANGUAGE_NAMES[detectedLanguage]}. Результат появится на вкладке «Вывод».</p>
+                  <button className="button primary compact" style={{width: '100%', marginTop: 8}} disabled={busy||['md','txt','json'].includes(extension)} onClick={() => void runCode()}>
+                    <Play size={13} fill="currentColor" /> Запустить файл
                   </button>
                 </div>
               </div>
@@ -1552,6 +1498,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
         {/* Central Editor Area (with Multi-Tab, Split Editor & Diff Editor) */}
         <div className="fusion-editor-container">
           {/* File Tabs Strip */}
+          <div className="ide-editor-chrome">
           <div className="fusion-tab-bar" role="tablist" aria-label="Файлы редактора">
             {files.map((file, idx) => hiddenTabs.includes(file.name)?null:(
               <div
@@ -1562,7 +1509,7 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                 onDoubleClick={()=>setZen(v=>!v)}
                 onClick={() => setActiveFileIndex(idx)}
               >
-                <FileCode2 size={13} className="tab-icon" />
+                <FileIcon name={file.name}/>
                 <span className="tab-name">{file.name}</span>
                 {dirty && idx === activeFileIndex && <span className="tab-dirty-dot" />}
                 {files.length > 1 && (
@@ -1582,6 +1529,23 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
             <button className="fusion-tab-plus" onClick={createNewFile} title="Создать новый файл">
               <Plus size={14} />
             </button>
+          </div>
+          <div className="ide-editor-toolbar">
+            <nav className="ide-file-path" aria-label="Путь текущего файла">
+              <span>{project?.name || 'Рабочая область'}</span><ChevronRight size={12}/>
+              <FileIcon name={activeFile.name}/><span className="ide-current-file">{activeFile.name}</span>
+            </nav>
+            <div className="ide-editor-actions" aria-label="Действия редактора">
+              <button className="fusion-icon-btn" aria-label="Переключить боковую панель" aria-pressed={sidebarOpen} title={`Боковая панель (${displayKey(keys.sidebar)})`} onClick={()=>commandRef.current('sidebar')}><PanelLeft size={15}/></button>
+              <button className="fusion-icon-btn" aria-label="Переключить нижнюю панель" aria-pressed={bottomOpen} title={`Панель инструментов (${displayKey(keys.panel)})`} onClick={()=>commandRef.current('panel')}><PanelBottom size={15}/></button>
+              <span className="ide-action-divider"/>
+              <button className={`fusion-icon-btn ${isSplit?'active':''}`} aria-label="Разделить редактор" aria-pressed={isSplit} title={`Разделить редактор (${displayKey(keys.split)})`} onClick={()=>setIsSplit(v=>!v)}><Columns size={15}/></button>
+              <button className={`fusion-icon-btn ${isDiffMode?'active':''}`} aria-label="Сравнение версий" aria-pressed={isDiffMode} title="Сравнение версий" onClick={()=>setIsDiffMode(v=>!v)}><Split size={15}/></button>
+              <button className="fusion-icon-btn" aria-label="Форматировать документ" title={`Форматировать документ (${displayKey(keys.format)})`} onClick={formatDocument}><AlignLeft size={15}/></button>
+              <button className={`fusion-icon-btn ${settings.minimap?'active':''}`} aria-label="Переключить миникарту" aria-pressed={settings.minimap} title="Миникарта" onClick={()=>void updateSettings({minimap:!settings.minimap}).catch(e=>notify(String(e)))}><Map size={15}/></button>
+              <button className={`fusion-icon-btn ${showAI?'active':''}`} aria-label="AI Ассистент кода" aria-pressed={showAI} title="AI Ассистент кода" onClick={()=>setShowAI(v=>!v)}><Sparkles size={15}/></button>
+            </div>
+          </div>
           </div>
 
           {/* Monaco Editor / Split Editor / Diff Editor Shell */}
@@ -1673,25 +1637,25 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                     className={`bottom-tab ${bottomTab === 'output' ? 'active' : ''}`}
                     onClick={() => setBottomTab('output')}
                   >
-                    <Terminal size={13} /> Вывод программы (Console)
+                    <Terminal size={13} /> Вывод
                   </button>
                   <button
                     className={`bottom-tab ${bottomTab === 'terminal' ? 'active' : ''}`}
                     onClick={() => setBottomTab('terminal')}
                   >
-                    <Code2 size={13} /> Терминал (Shell)
+                    <Code2 size={13} /> Терминал
                   </button>
                   <button
                     className={`bottom-tab ${bottomTab === 'repl' ? 'active' : ''}`}
                     onClick={() => setBottomTab('repl')}
                   >
-                    <Bug size={13} /> Python REPL & Переменные
+                    <Bug size={13} /> Python REPL
                   </button>
                   <button
                     className={`bottom-tab ${bottomTab === 'problems' ? 'active' : ''}`}
                     onClick={() => setBottomTab('problems')}
                   >
-                    <AlertCircle size={13} /> Проблемы ({problems.length})
+                    <AlertCircle size={13} /> Проблемы <span className="ide-count">{problems.length}</span>
                   </button>
                   <button
                     className={`bottom-tab ${bottomTab === 'api' ? 'active' : ''}`}
@@ -1703,13 +1667,13 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                     className={`bottom-tab ${bottomTab === 'database' ? 'active' : ''}`}
                     onClick={() => setBottomTab('database')}
                   >
-                    <Database size={13} /> База данных (Data Grid)
+                    <Database size={13} /> База данных
                   </button>
                   <button
                     className={`bottom-tab ${bottomTab === 'stdin' ? 'active' : ''}`}
                     onClick={() => setBottomTab('stdin')}
                   >
-                    <AlignLeft size={13} /> Ввод (STDIN)
+                    <AlignLeft size={13} /> Ввод
                   </button>
                 </div>
 
@@ -1737,7 +1701,11 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
                         <span className="pulse-dot" /> {status}
                       </div>
                     )}
-                    <Output result={result} />
+                    {!result&&!busy?<div className="ide-output-empty">
+                      <span className="ide-output-icon"><Terminal size={22}/></span>
+                      <div><strong>Вывод появится здесь</strong><p>Запустите файл <code>{activeFile.name}</code>, чтобы увидеть результат.</p></div>
+                      <kbd>{displayKey(keys.run)}</kbd>
+                    </div>:<Output result={result} />}
                     {htmlPreview&&<iframe title="Предпросмотр HTML и CSS" className="html-preview" sandbox="" srcDoc={htmlPreview}/>}
                   </div>
                 )}
@@ -1957,26 +1925,26 @@ export default function DevForgeIDE({projectId}: {projectId?: string}) {
       {/* =================================================================== */}
       <footer className="fusion-statusbar devforge-statusbar">
         <div className="statusbar-left">
-          <span className="status-item branch" title="Локальные снимки проекта">
+          <button className="status-item branch" title="Локальные снимки проекта" onClick={()=>{setActiveTool('git');setSidebarOpen(true);}}>
             <History size={12} /> Снимки: {gitCommits.length}
-          </span>
-          <span className="status-item problems-badge" onClick={() => { setBottomTab('problems'); setBottomOpen(true); }}>
+          </button>
+          <button className="status-item problems-badge" title="Открыть проблемы" onClick={() => { setBottomTab('problems'); setBottomOpen(true); }}>
             <AlertCircle size={12} /> {problems.length}
-          </span>
+          </button>
           <span className="status-item ready">
             <span className={busy ? 'pulse-dot' : 'green-dot'} />
             {busy ? status : 'Готово'}
           </span>
-          <span className="status-item platform-pill">
+          <span className="status-item platform-pill" title={PlatformAdapter.isDesktop()?'Приложение Windows':'Локальная среда в браузере'}>
             {PlatformAdapter.isDesktop() ? <Laptop size={12} /> : <Globe size={12} />}
-            {PlatformAdapter.isDesktop() ? 'Desktop (WebView2)' : 'Web (Браузер)'}
+            Локальная среда
           </span>
         </div>
 
         <div className="statusbar-right">
-          <span className="status-item">{saveState}</span>
-          <span className="status-item">Ln {cursorPos.line}, Col {cursorPos.col}</span>
-          <span className="status-item">{prefs.insertSpaces?'Spaces':'Tab'}: {prefs.tabSize}</span>
+          <span className="status-item ide-save-state">{!dirty&&<Check size={12}/>} {saveState}</span>
+          <span className="status-item">Стр {cursorPos.line}, стлб {cursorPos.col}</span>
+          <span className="status-item">{prefs.insertSpaces?'Пробелы':'Табуляция'}: {prefs.tabSize}</span>
           <span className="status-item">UTF-8</span>
           <span className="status-item">{activeFile.content.includes('\r\n')?'CRLF':'LF'}</span>
           <span className="status-item lang-badge">

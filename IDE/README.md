@@ -1,4 +1,4 @@
-# DevForge IDE 1.0.0
+# DevForge IDE 1.0.1
 
 A code editor and development workspace without the lesson sections.
 

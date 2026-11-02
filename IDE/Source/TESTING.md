@@ -1,4 +1,25 @@
-# DevForge 1.0.0 verification
+# DevForge 1.0.1 verification
+
+## 1.0.1 release checks — 2026-11-02
+
+- Backend: 75 passed. Runtime and backup-format checks: 9 passed.
+- Production Playwright suites (IDE, workbench, security, production): 26 passed.
+- Windows IDE and Desktop binaries and installers: built with version 1.0.1.
+- Both editions: installation, reinstall/upgrade, native startup, and removal verified in isolated workspace folders.
+- Desktop startup timed out during concurrent checks; an isolated retry passed and the Python worker printed `42`.
+
+## IDE refresh — 2026-10-31
+
+- TypeScript and production frontend build: passed.
+- Playwright IDE and workbench suites: 19 passed, including Assembly/Lua project creation and execution, run-file selection, panel restoration, and smaller windows.
+- Assembly and Lua creation/run checks against the production bundle: 2 passed.
+- Runtime and backup-format tests: 9 passed.
+- Rebuilt Windows IDE and installer; native IDE startup verification passed.
+- Visually checked the dark workbench, preferences, light search panel, 760px window, and Assembly output/registers. Updated screenshots are in `screenshots/`.
+
+Existing projects are preserved. An Assembly project previously created with `query.sql` is not rewritten automatically; source containing Assembly must be saved with an `.asm` extension.
+
+## Original 1.0.0 release verification
 
 Date: 2026-10-31. Environment: Windows x64, Python 3.12, Node.js, Chromium/Edge,
 and WebView2. Test databases and accounts are isolated from personal data.

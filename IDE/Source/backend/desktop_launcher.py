@@ -22,7 +22,7 @@ def main():
     except OSError:
         # Keep the origin stable so browser draft recovery survives restarts.
         import ctypes
-        ctypes.windll.user32.MessageBoxW(0,'DevForge Desktop уже открыт или порт 8766 занят. Закройте предыдущее окно.','DevForge 1.0.0',64)
+        ctypes.windll.user32.MessageBoxW(0,'DevForge Desktop уже открыт или порт 8766 занят. Закройте предыдущее окно.','DevForge 1.0.1',64)
         return
     port=sock.getsockname()[1]
     server=uvicorn.Server(uvicorn.Config(app,host='127.0.0.1',port=port,log_level='warning',access_log=False))
@@ -34,7 +34,7 @@ def main():
     url=f'http://127.0.0.1:{port}'
     webview.settings['ALLOW_DOWNLOADS']=True
     webview.settings['OPEN_EXTERNAL_LINKS_IN_BROWSER']=True
-    window=webview.create_window('DevForge IDE 1.0.0',url,width=1440,height=960,min_size=(760,600),background_color='#111318',text_select=True,hidden=bool(os.environ.get('DEVFORGE_TEST_HIDDEN')))
+    window=webview.create_window('DevForge IDE 1.0.1',url,width=1440,height=960,min_size=(760,600),background_color='#111318',text_select=True,hidden=bool(os.environ.get('DEVFORGE_TEST_HIDDEN')))
     def close():server.should_exit=True
     window.events.closed+=close
     # Test entry accepts no external code: it checks the bundled Python worker.
@@ -78,5 +78,5 @@ if __name__=='__main__':
     try:main()
     except Exception as error:
         import ctypes
-        ctypes.windll.user32.MessageBoxW(0,'Не удалось открыть DevForge.\n'+str(error)+'\nПроверьте наличие Microsoft Edge WebView2 Runtime.','DevForge 1.0.0',16)
+        ctypes.windll.user32.MessageBoxW(0,'Не удалось открыть DevForge.\n'+str(error)+'\nПроверьте наличие Microsoft Edge WebView2 Runtime.','DevForge 1.0.1',16)
         raise

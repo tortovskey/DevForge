@@ -113,7 +113,7 @@ export default function SyncModal({ isOpen, onClose }: SyncModalProps) {
             {isDesktop ? <Laptop size={16} /> : <Globe size={16} />}
             <strong>Текущий режим: {isDesktop ? 'Desktop IDE (WebView2)' : 'Web (Браузер)'}</strong>
           </div>
-          <span className="badge-pill">v1.0.0</span>
+          <span className="badge-pill">v1.0.1</span>
         </div>
 
         {statusMessage && (
@@ -193,7 +193,7 @@ export default function SyncModal({ isOpen, onClose }: SyncModalProps) {
 
         <div className="modal-footer">
           <small className="muted">
-            DevForge 1.0.0 единая кодовая база: IDE и Desktop используют совместимый протокол данных.
+            DevForge 1.0.1 единая кодовая база: IDE и Desktop используют совместимый протокол данных.
           </small>
         </div>
       </div>

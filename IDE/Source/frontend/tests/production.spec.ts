@@ -33,7 +33,7 @@ test('portable Python waits for input and continues in the editor',async({page})
  expect(await page.evaluate(()=>crossOriginIsolated)).toBe(true);
  await page.locator('.monaco-editor textarea').focus();await page.keyboard.press('Control+A');
  await page.keyboard.insertText('print("Hi")\nnumber=int(input())\nprint(number+1)');
- await page.getByRole('button',{name:'Run',exact:true}).click();
+ await page.getByRole('button',{name:'Запустить',exact:true}).click();
  await expect(page.getByRole('dialog')).toBeVisible();
  // Waiting for a person must not consume the five-second execution limit.
  await page.waitForTimeout(5500);

@@ -38,7 +38,7 @@ try{
    Copy-Item -LiteralPath (Join-Path $sourceRoot 'assets/forge.ico') -Destination $destination -Force
    Copy-Item -LiteralPath (Join-Path $sourceRoot 'licenses') -Destination $destination -Recurse -Force
    $description=if($edition -eq 'IDE'){'Редактор кода без учебных разделов. Запуск: DevForgeIDE.exe. Установка: Setup.exe.'}else{'Обучение и IDE в отдельном окне. Запуск: DevForge.exe. Установка: Setup.exe.'}
-   Set-Content -LiteralPath (Join-Path $destination 'README.md') -Encoding UTF8 -Value "# DevForge $edition 1.0.0`n`n$description`n`nWindows 10/11 x64. Данные хранятся в LocalAppData отдельно от программы и сохраняются при удалении.`n`nЛицензия MIT; исходники: https://github.com/tortovskey/DevForge`n"
+   Set-Content -LiteralPath (Join-Path $destination 'README.md') -Encoding UTF8 -Value "# DevForge $edition 1.0.1`n`n$description`n`nWindows 10/11 x64. Данные хранятся в LocalAppData отдельно от программы и сохраняются при удалении.`n`nЛицензия MIT; исходники: https://github.com/tortovskey/DevForge`n"
    Copy-Item -LiteralPath (Join-Path $sourceRoot '../../LICENSE') -Destination $destination -Force
    & $InnoCompiler "/DEdition=$edition" "/DAppSource=$destination" "/DOutputPath=$destination" "/DBrandPath=$(Join-Path $sourceRoot 'assets')" (Join-Path $PSScriptRoot 'windows-setup.iss')
    if($LASTEXITCODE){throw "Setup compilation failed: $edition"}

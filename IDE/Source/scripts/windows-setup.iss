@@ -19,7 +19,7 @@
 [Setup]
 AppId=DevForge.{#Edition}
 AppName=DevForge {#Edition}
-AppVersion=1.0.0
+AppVersion=1.0.1
 AppPublisher=DevForge
 AppPublisherURL=https://github.com/tortovskey/DevForge
 AppSupportURL=https://github.com/tortovskey/DevForge/issues
@@ -48,7 +48,7 @@ CloseApplications=yes
 RestartApplications=no
 SetupMutex=DevForge.Setup.{#Edition}
 AppMutex=Local\DevForge.{#Edition}
-VersionInfoVersion=1.0.0.0
+VersionInfoVersion=1.0.1.0
 VersionInfoProductName=DevForge {#Edition}
 VersionInfoDescription=DevForge {#Edition} Setup
 ChangesAssociations=no

@@ -77,7 +77,7 @@ export function AuthGate({children}:{children:ReactNode}){
   if(!ready) return (
     <div className="boot">
       <span className="brand-mark"><ForgeIcon size={32}/></span>
-      <p>Запуск DevForge {isIde ? 'Fusion IDE' : '1.0.0'}…</p>
+      <p>Запуск DevForge {isIde ? 'Fusion IDE' : '1.0.1'}…</p>
     </div>
   );
 
@@ -86,7 +86,7 @@ export function AuthGate({children}:{children:ReactNode}){
       <div className="auth-intro">
         <span className="brand">
           <span className="brand-mark"><ForgeIcon size={30}/></span>
-          devforge {isIde ? 'FUSION IDE' : 'IDE'} <small>1.0.0</small>
+          devforge {isIde ? 'FUSION IDE' : 'IDE'} <small>1.0.1</small>
         </span>
         <span className="eyebrow">
           {isIde ? 'PROFESSIONAL MULTI-LANGUAGE IDE' : 'FROM YOUR FIRST LINE TO YOUR NEXT IDEA'}

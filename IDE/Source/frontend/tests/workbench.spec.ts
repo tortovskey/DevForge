@@ -110,3 +110,26 @@ test('JetBrains keymap opens settings, terminal and runs Python with Shift F10',
   await page.keyboard.press('Shift+F10');await expect(page.locator('.fusion-bottom-panel')).toContainText('42',{timeout:60000});
   await page.keyboard.press('Shift');await page.keyboard.press('Shift');await expect(page.getByRole('combobox',{name:'Поиск команд и файлов'})).toBeVisible();
 });
+
+test('editor toolbar restores closed panels and keeps controls within smaller windows',async({page})=>{
+  await page.goto('/ide');await expect(page.locator('.monaco-editor').first()).toBeVisible();
+  await expect(page.locator('.app-main>.topbar')).not.toBeVisible();
+  await page.getByRole('button',{name:'Закрыть панель',exact:true}).click();
+  await expect(page.locator('.fusion-bottom-panel')).not.toBeVisible();
+  await page.getByRole('button',{name:'Переключить нижнюю панель',exact:true}).click();
+  await expect(page.locator('.fusion-bottom-panel')).toBeVisible();
+  await page.getByRole('button',{name:'Переключить боковую панель',exact:true}).click();
+  await expect(page.locator('.fusion-sidebar-window')).not.toBeVisible();
+  await page.getByRole('button',{name:'Переключить боковую панель',exact:true}).click();
+  await expect(page.locator('.fusion-sidebar-window')).toBeVisible();
+  for(const width of [1440,1000,760]) {
+    await page.setViewportSize({width,height:800});
+    await expect(page.getByRole('button',{name:'Запустить',exact:true})).toBeInViewport();
+    await expect(page.getByRole('button',{name:'Сохранить код',exact:true})).toBeInViewport();
+    await expect(page.locator('.fusion-statusbar')).toBeInViewport();
+    const bounds=await page.locator('.fusion-monaco-shell').boundingBox();
+    expect(bounds!.width).toBeGreaterThan(200);
+    expect(bounds!.height).toBeGreaterThan(200);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  }
+});
