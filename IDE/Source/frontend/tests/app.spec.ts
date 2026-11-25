@@ -11,6 +11,21 @@ async function runtime(page:Page,language:string,request:unknown,timeout=5000){
   },{language,request,timeout});
 }
 
+test('documentation preview follows the active filters', async ({page}) => {
+  await ready(page);
+  await page.goto('/documentation');
+  const sidebar = page.locator('.docs-sidebar');
+  await sidebar.getByRole('combobox').selectOption('python');
+  await sidebar.getByRole('button').first().click();
+  await sidebar.getByRole('combobox').selectOption('sql');
+  await expect(page.locator('.doc-article .eyebrow')).toContainText('SQL');
+  await sidebar.getByRole('textbox').fill('  JOIN  ');
+  await expect(sidebar.getByRole('button').first()).toBeVisible();
+  await sidebar.getByRole('textbox').fill('unmatched-document-xyz');
+  await expect(page.locator('.doc-article')).toHaveCount(0);
+  await expect(page.getByText('Статьи не найдены')).toBeVisible();
+});
+
 test('Python output, traceback, timeout, cancellation and restart',async({page})=>{
   await ready(page);
   const result=await runtime(page,'python',{code:'def add(a,b):\n    return a+b\nprint(add(5,3))'});
